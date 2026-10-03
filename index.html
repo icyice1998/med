@@ -91,6 +91,12 @@ pre.flow{background:var(--code);padding:12px;border-radius:6px;overflow-x:auto;f
 .tabs{display:flex;gap:4px;border:1px solid var(--line);border-radius:7px;padding:3px;background:var(--bg)}
 .tabs button{flex:1;padding:6px 8px;border:0;border-radius:5px;background:transparent;font-size:13px;color:var(--muted)}
 .tabs button[aria-pressed=true]{background:var(--panel);color:var(--fg);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.dxtabs{display:flex;flex-wrap:wrap;gap:6px;margin:16px 0 4px;border-bottom:1px solid var(--line);padding-bottom:0}
+.dxtab{padding:8px 14px;border:1px solid var(--line);border-bottom:0;border-radius:8px 8px 0 0;background:var(--bg);color:var(--muted);font-size:13.5px;margin-bottom:-1px}
+.dxtab[aria-pressed=true]{background:var(--panel);color:var(--fg);font-weight:600;border-color:var(--line)}
+.dxtab.mgmt{color:var(--accent);font-weight:600}
+.dxtab.mgmt[aria-pressed=true]{background:var(--accent-soft);border-color:var(--accent)}
+.dxpanels{border:1px solid var(--line);border-top:0;border-radius:0 0 8px 8px;padding:4px 14px 10px;margin-bottom:10px;background:var(--panel)}
 .trail{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
 .trail .tc{font-size:12.5px;padding:3px 10px;border-radius:12px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--line)}
 .redbox{border:1px solid var(--bad);background:var(--bad-soft);border-radius:8px;padding:10px 14px;margin:10px 0}
@@ -1506,7 +1512,11 @@ refs: [
       { sub: "Acute/emergency management of symptomatic bradycardia" },
       { ul: [
         "[+] Follow ACLS bradycardia algorithm (see [[acls]]): atropine 1 mg IV (repeat up to total 3 mg) as first-line for unstable bradycardia; if ineffective, transcutaneous pacing, dopamine infusion, or epinephrine infusion as temporizing measures; atropine is less effective for infranodal (wide-complex) block and may be ineffective or even paradoxically worsen high-grade infra-Hisian block - proceed early to pacing in this setting.",
-        "[H] Temporary transvenous pacing is used as a bridge to permanent pacemaker implantation in unstable patients or when the cause may be reversible (e.g., acute MI, drug toxicity, post-surgical block, Lyme carditis)."
+        "[H] Isoproterenol is an additional adjunctive pharmacologic option alongside atropine when the block is at the AV-nodal level, since both drugs improve AV-nodal conduction (but may appear to worsen infranodal conduction).",
+        "[H] Urgency of temporary pacing is risk-stratified by the escape rhythm: a narrow-complex junctional escape at ~45/min with no symptoms does not warrant urgent temporary pacing, whereas a wide-complex escape at ~30/min (implying a lower, infra-Hisian level of block) does.",
+        "[H] When transcutaneous pacing is used, the cathode patch is placed anteriorly over the cardiac apex and the anode posteriorly between the spine and scapula (or above the right nipple); it is highly effective acutely but its duration is limited by patient discomfort and by longer-term failure to capture as lead impedance changes, so transvenous pacing (via jugular, subclavian, or femoral access to the right ventricle) is more reliable for sustained temporary support.",
+        "[H] Temporary pacing or pharmacologic support with beta-1 adrenergic agonists may be needed for sinus arrest/junctional rhythm from SA nodal artery injury during cardiac surgery, while awaiting SA nodal recovery.",
+        "[H] Temporary transvenous pacing is used as a bridge to permanent pacemaker implantation in unstable patients or when the cause may be reversible (e.g., acute MI, drug toxicity, post-surgical block, Lyme carditis); Lyme carditis AV block typically improves within 1 week of antibiotic therapy (can take longer in some patients)."
       ]},
       { sub: "Permanent pacemaker therapy" },
       { ul: [
@@ -1539,9 +1549,10 @@ refs: [
     ],
     immediate: [
       "Follow the ACLS bradycardia algorithm: atropine 1 mg IV, repeat up to a total of 3 mg, as first-line for unstable bradycardia",
+      "Isoproterenol is an adjunctive pharmacologic option alongside atropine specifically when the block is AV-nodal (both improve AV-nodal conduction)",
       "Atropine is less effective (and may paradoxically worsen) infranodal/infra-Hisian block - proceed early to pacing in this setting",
-      "If atropine is ineffective: transcutaneous pacing, dopamine infusion, or epinephrine infusion as temporising measures",
-      "Temporary transvenous pacing as a bridge to permanent pacing in unstable patients or when the cause may be reversible (acute MI, drug toxicity, post-surgical block, Lyme carditis)",
+      "If atropine/isoproterenol are ineffective: transcutaneous pacing (cathode over the cardiac apex, anode posteriorly between spine/scapula - effective acutely but limited by discomfort and capture failure over time), dopamine infusion, or epinephrine infusion as temporising measures",
+      "Temporary transvenous pacing (jugular, subclavian, or femoral access to the RV) as a more reliable bridge to permanent pacing in unstable patients or when the cause may be reversible (acute MI, drug toxicity, post-surgical block, Lyme carditis - AV block typically improves within 1 week of antibiotics)",
       "Exclude and correct reversible causes in parallel: drugs, electrolytes, hypothyroidism, hypoxia/OSA, hypothermia, raised ICP, hypervagotonia, acute ischaemia"
     ],
     workup: [
@@ -2213,14 +2224,29 @@ refs: [
         ["Unfractionated heparin (UFH)", "[H] IV bolus + infusion titrated to aPTT or anti-Xa; preferred in severe renal impairment, when rapid reversal may be needed (e.g., possible need for thrombolysis/procedure), or hemodynamic instability"],
         ["Low-molecular-weight heparin (LMWH)", "[H] Weight-based subcutaneous dosing (e.g., enoxaparin 1 mg/kg q12h or 1.5 mg/kg daily); preferred over UFH for most stable patients and in cancer-associated thrombosis historically"],
         ["Fondaparinux", "[H] Weight-based subcutaneous dosing; avoided in significant renal impairment (renally cleared, no reversal agent)"],
-        ["Warfarin", "[H] Requires bridging with heparin/LMWH until INR therapeutic (2.0-3.0) for >=24-48 h; still used for antiphospholipid syndrome, severe renal failure, and mechanical heart valves"],
-        ["DOACs (apixaban, rivaroxaban, dabigatran, edoxaban)", "[H] Now first-line for most VTE given ease of use and comparable/superior safety to warfarin; apixaban and rivaroxaban can be used without initial heparin lead-in (higher initial dose for first 1-3 weeks then standard dose); dabigatran/edoxaban require 5-10 days of initial parenteral anticoagulation first"]
+        ["Warfarin", "[H] Usual start dose 5 mg; full effect takes 5-7 days of daily therapy, so overlap with full-dose UFH/LMWH/fondaparinux ('bridging') for a minimum of 5 days AND until two sequential INR values at least 1 day apart reach the target range (INR 2.0-3.0), then stop the parenteral agent; still used for antiphospholipid syndrome (DOACs are NOT standard for APS), severe renal failure/ESKD, cirrhosis, and mechanical heart valves"],
+        ["DOACs (apixaban, rivaroxaban, dabigatran, edoxaban)", "[H] Now first-line for most VTE. Rivaroxaban 15 mg PO BID x3 weeks, then 20 mg once daily with the evening meal (CrCl 15-50 mL/min: 10 mg BID). Apixaban 10 mg PO BID x1 week, then 5 mg BID (reduced dose 2.5 mg BID if >=2 of: age >80y, weight <60 kg, creatinine >1.5 mg/dL). Dabigatran and edoxaban both require 5 days of initial parenteral anticoagulation (UFH/LMWH/fondaparinux) first: dabigatran 150 mg BID (CrCl >30) or 75 mg BID (CrCl 15-30); edoxaban 60 mg once daily (weight >60 kg, CrCl >50) or 30 mg once daily (reduced-dose criteria/CrCl 15-50). DOACs are avoided in pregnancy/breastfeeding and in severe renal failure/cirrhosis (safety uncertain)."]
       ]}},
-      { sub: "Massive (high-risk) PE - reperfusion therapy" },
+      { sub: "Reversal of anticoagulant-related bleeding" },
       { ul: [
-        "[H] Systemic thrombolysis (e.g., alteplase 100 mg IV over 2 hours, or an accelerated regimen such as 50 mg over shorter infusion in some protocols) is indicated for hemodynamically unstable PE without major contraindication (active bleeding, recent stroke, recent major surgery).",
-        "[H] Catheter-directed thrombolysis/thrombectomy is an option for patients with contraindications to systemic thrombolysis or as a lower-bleeding-risk alternative, particularly gaining use in submassive PE with worsening clinical trajectory.",
-        "[H] Surgical embolectomy is reserved for massive PE when thrombolysis is contraindicated or has failed, in centers with surgical expertise."
+        "[H] Life-threatening or intracranial bleeding from heparin/LMWH: protamine sulfate.",
+        "[H] Dabigatran: idarucizumab is an effective, rapidly acting specific antidote.",
+        "[H] Anti-Xa DOACs (apixaban, rivaroxaban, edoxaban): andexanet alfa or 4-factor prothrombin complex concentrate reverses major bleeding, but andexanet carries a risk of rebound thrombosis.",
+        "[H] For minor bleeding on warfarin: holding the dose, fresh-frozen plasma, vitamin K, or observation without pharmacologic reversal can be considered depending on severity."
+      ]},
+      { sub: "Management of massive (high-risk) PE with hypotension" },
+      { ul: [
+        "[H] Replete volume cautiously with only 500 mL of normal saline - excessive fluid administration worsens RV wall stress, exacerbates RV ischemia, and worsens LV compliance/filling via further interventricular septal shift toward the LV.",
+        "[H] Norepinephrine is the first-line vasopressor (increases systemic arterial pressure) and dobutamine the first-line inotrope (increases RV inotropy, lowers filling pressures) for PE-related shock.",
+        "[H] Veno-arterial ECMO is considered if additional hemodynamic support is needed and within the patient's goals of care."
+      ]},
+      { sub: "Reperfusion therapy for massive PE" },
+      { ul: [
+        "[H] FDA-approved systemic fibrinolysis: alteplase (tPA) 100 mg IV as a continuous infusion over 2 hours; the sooner it is given the more effective, but it can still be used for at least 14 days after the PE occurred. A controversial off-label lower dose of 50 mg tPA over 2 h appears less effective but may cause fewer bleeding complications.",
+        "[H] Contraindications to fibrinolysis: intracranial disease, recent surgery, trauma. Overall major bleeding rate is ~10%, including a 2-3% risk of intracranial hemorrhage.",
+        "[H] For submassive PE with preserved BP but moderate/severe RV dysfunction, fibrinolysis use is controversial; consider thrombolysis or embolectomy if there is lack of clinical improvement, clinical deterioration, clot in transit, severe/persistent RV strain, or low cardiac output.",
+        "[H] Catheter-directed therapy (pharmacologic low-dose continuous tPA infusion, mechanical thrombectomy/aspiration, or pharmacomechanical [e.g., low-dose ultrasound-facilitated thrombolysis]) is an option with a lower major-bleeding rate than systemic fibrinolysis, particularly for submassive PE with worsening trajectory.",
+        "[H] Surgical embolectomy (via median sternotomy/cardiopulmonary bypass) is reserved for massive PE when thrombolysis is contraindicated or has failed; improved technique and ECMO use have increased survival."
       ]},
       { sub: "Submassive PE" },
       { ul: [
@@ -2232,12 +2258,18 @@ refs: [
       ]},
       { sub: "Chronic thromboembolic pulmonary hypertension (CTEPH)" },
       { ul: [
-        "[H] A long-term complication of unresolved PE in which organized thrombus causes chronic pulmonary vascular obstruction and pulmonary hypertension (see [[pulmonary_hypertension]]); pulmonary thromboendarterectomy is potentially curative in operable disease, with riociguat (a soluble guanylate cyclase stimulator) and balloon pulmonary angioplasty (BPA) as options for inoperable or residual disease."
+        "[H] CTEPH develops in about 2% of acute PE patients. A long-term complication of unresolved PE in which organized thrombus causes chronic pulmonary vascular obstruction and pulmonary hypertension (see [[pulmonary_hypertension]]); pulmonary thromboendarterectomy (median sternotomy, cardiopulmonary bypass, deep hypothermia, periods of hypothermic circulatory arrest) is potentially curative, with 1-5% operative mortality at experienced centers; riociguat (a soluble guanylate cyclase stimulator) and balloon pulmonary angioplasty (BPA) are used for inoperable or residual/persistent disease."
       ]},
-      { sub: "VTE prophylaxis" },
-      { ul: [
-        "[H] Risk-stratified prophylaxis by clinical setting (medical inpatients, surgical patients by procedure type, critically ill patients) using mechanical methods (intermittent pneumatic compression) and/or pharmacologic prophylaxis (LMWH, UFH, or DOACs depending on setting) is standard practice to reduce hospital-acquired VTE."
-      ]}
+      { sub: "VTE prophylaxis (dosing by setting)" },
+      { table: { head: ["Setting", "Prophylaxis options"], rows: [
+        ["High-risk nonorthopedic surgery", "[H] UFH 5000 units SC BID or TID; or enoxaparin 40 mg daily; or dalteparin 2500 or 5000 units daily"],
+        ["Major orthopedic surgery", "[H] Aspirin 81 mg BID; rivaroxaban 10 mg daily starting 6-10 h postop; dabigatran 110 mg day 1 then 220 mg daily; apixaban 2.5 mg BID starting 12-24 h postop; warfarin (target INR 2.0); enoxaparin 40 mg daily; dalteparin 2500 or 5000 units daily; or fondaparinux 2.5 mg daily"],
+        ["Medically ill inpatients (immobilized, prior VTE, CVC, or cancer)", "[H] UFH 5000 units BID or TID; enoxaparin 40 mg daily; dalteparin 2500 or 5000 units daily; or fondaparinux 2.5 mg daily"],
+        ["Medically ill patients about to be discharged", "[H] Rivaroxaban 10 mg daily for about 5 weeks (rarely prescribed for this indication)"],
+        ["Ambulatory medical oncology (high-risk, starting new chemo)", "[H] Apixaban or rivaroxaban for up to 6 months"],
+        ["Cancer surgery (incl. gynecologic)", "[H] Enoxaparin 40 mg daily; consider extending prophylaxis to 1 month"],
+        ["Anticoagulation contraindicated", "[H] Intermittent pneumatic compression devices and/or graduated below-knee compression stockings"]
+      ]}}
     ]},
     { h: "6. Complications and follow-up", body: [
       { ul: [
@@ -2264,11 +2296,14 @@ refs: [
     ],
     immediate: [
       "Assess haemodynamic stability first - shock/hypotension defines massive (high-risk) PE and should not wait for full work-up",
-      "Massive PE with instability: systemic thrombolysis (e.g. alteplase 100 mg IV over 2 h) if no major contraindication (active bleeding, recent stroke, recent major surgery)",
+      "Massive PE with hypotension: give only 500 mL IV normal saline (excess fluid worsens RV ischaemia/septal shift) - do not over-resuscitate",
+      "Norepinephrine (first-line vasopressor) and/or dobutamine (first-line inotrope) for PE-related shock; VA-ECMO if refractory and within goals of care",
+      "Systemic thrombolysis if no major contraindication (active bleeding, recent stroke/surgery, intracranial disease, trauma): alteplase 100 mg IV over 2 h (effective up to 14 days post-PE); major bleeding risk ~10% including 2-3% ICH",
       "Catheter-directed thrombolysis/thrombectomy if systemic thrombolysis is contraindicated, or surgical embolectomy if thrombolysis is contraindicated or has failed",
-      "Start anticoagulation promptly: unfractionated heparin IV bolus plus infusion if unstable or rapid reversal may be needed, otherwise LMWH or a DOAC (apixaban/rivaroxaban, no heparin lead-in needed) for stable patients",
-      "Submassive PE: anticoagulation alone with close monitoring; consider catheter-directed therapy if clinical deterioration",
-      "IVC filter if anticoagulation is absolutely contraindicated with active bleeding"
+      "Start anticoagulation promptly: unfractionated heparin IV bolus plus infusion if unstable or rapid reversal may be needed, otherwise LMWH or a DOAC (apixaban 10 mg BID x1wk then 5 mg BID, or rivaroxaban 15 mg BID x3wk then 20 mg daily - no heparin lead-in needed) for stable patients",
+      "Submassive PE: anticoagulation alone with close monitoring; consider catheter-directed therapy or embolectomy if clinical deterioration, clot in transit, or severe/persistent RV strain",
+      "IVC filter (retrievable preferred) if anticoagulation is absolutely contraindicated with active bleeding, or for recurrent PE despite adequate anticoagulation",
+      "Reverse anticoagulant-related major bleeding: protamine for heparin/LMWH, idarucizumab for dabigatran, andexanet alfa or 4-factor PCC for anti-Xa DOACs (watch for rebound thrombosis with andexanet)"
     ],
     workup: [
       "Wells score for pretest probability; D-dimer (age-adjusted cutoff above 50 y) if low/moderate probability - negative excludes VTE without imaging",
@@ -2757,6 +2792,7 @@ STEP 6: IDENTIFY AND TREAT PRECIPITANT
   Non-compliance, infection, trauma, pregnancy, infarction, cocaine -> targeted workup and therapy
 
 STEP 7: POTASSIUM REPLACEMENT (guided by renal function and ECG)
+  [H] Estimated total-body potassium deficit in DKA is 3-5 mmol/kg (3-5 meq/kg) body weight
   If K+ <3.5 mmol/L: give 10-20 mmol/h until K+ >3.5 mmol/L (hold/delay insulin as above if <3.3)
   If K+ 3.5-5.0 mmol/L: add 10-20 mmol to each liter of IV fluid, target K+ 4-5 mmol/L
   If K+ >5.0 mmol/L: start insulin but HOLD potassium; recheck K+ every 2 h
@@ -3159,7 +3195,8 @@ STEP 10: TRANSITION TO SC INSULIN
       { sub: "Myxedema coma [H]" },
       { ul: [
         "[H] Mortality remains 20-40% despite intensive treatment, independent of initial T4/TSH levels.",
-        "[H] Classic precipitants: drugs (sedatives, anesthetics, antidepressants), pneumonia, CHF, MI, GI bleeding, cerebrovascular accident, sepsis, cold exposure - usually in an elderly patient with known or previously undiagnosed hypothyroidism and poor compliance."
+        "[H] Classic precipitants: drugs (sedatives, anesthetics, antidepressants), pneumonia, CHF, MI, GI bleeding, cerebrovascular accident, sepsis, cold exposure - usually in an elderly patient with known or previously undiagnosed hypothyroidism and poor compliance.",
+        "[H] Clinical manifestations include reduced level of consciousness, sometimes with seizures, plus the other features of hypothyroidism; hypothermia can reach 23degC (74degF)."
       ]},
       { sub: "Myxedema coma treatment protocol [H]" },
       { flow:
@@ -3217,7 +3254,7 @@ STEP 10: TRANSITION TO SC INSULIN
     presentation: [
       "Myxedema coma: usually an elderly patient with known or previously undiagnosed hypothyroidism and poor compliance, precipitated by sedatives/anesthetics/antidepressants, pneumonia, CHF, MI, GI bleeding, stroke, sepsis, or cold exposure",
       "Hypoventilation leading to hypoxia/hypercapnia is central to the pathogenesis - ventilatory support is usually needed in the first 48 h",
-      "Hypothermia (core temp may be <30degC), altered mental status progressing to coma, bradycardia, and hyponatremia/hypoglycemia",
+      "Hypothermia (core temp may be <30degC, and can reach as low as 23degC/74degF in severe cases), altered mental status progressing to coma, bradycardia, and hyponatremia/hypoglycemia",
       "Mortality remains 20-40% despite intensive treatment, independent of the initial T4/TSH level",
       "[+] A myxedema coma patient may also have unrecognized concurrent adrenal insufficiency, which must be covered before/with thyroid hormone to avoid precipitating adrenal crisis"
     ],
@@ -6390,12 +6427,15 @@ Glasgow-Blatchford score
       { sub: "Ulcer-specific therapy [H]" },
       { ul: [
         "[H] High-dose PPI after endoscopic hemostasis reduces rebleeding and mortality in high-risk ulcers (meta-analysis shows comparable outcomes with constant-infusion vs intermittent dosing).",
+        "[H] High-dose PPI regimen (active bleeding/visible vessel/adherent clot): IV bolus 80 mg followed by infusion 8 mg/h, OR intermittent oral/IV dosing (e.g., 40 mg 2-4 times/day) - continued for 3 days; clear liquids ~2 days and hospitalize 3 days for active bleeding/visible vessel or adherent clot.",
+        "[H] Lower-risk ulcer findings get once-daily (standard-dose) PPI: flat pigmented spot - clear liquids ~1 day, hospitalize ~1-2 days; clean base - regular diet, discharge after endoscopy (no endoscopic therapy needed for either).",
         "[H] H. pylori eradication (if positive) reduces rebleeding to <5%; discontinue NSAIDs if possible, or switch to COX-2 selective NSAID + PPI if NSAIDs must continue.",
         "[H] Aspirin for secondary cardiovascular prevention should NOT be discontinued (or should be restarted promptly once hemostasis is confirmed) - RCT showed lower 8-week mortality with immediate reinstitution (1% vs 13%). Aspirin for primary prevention should be discontinued in UGIB patients."
       ]},
       { sub: "Variceal bleeding (see [[cirrhosis_complications]] for full portal-hypertension management)" },
       { ul: [
         "[H] IV vasoactive drug (octreotide 50 mcg bolus then 50 mcg/h for 2-5 days; or somatostatin, vapreotide, terlipressin) plus endoscopic variceal ligation - combination superior to either alone.",
+        "[H] Post-ligation variceal bleed management: clear liquids ~2 days, hospitalize ~3-5 days (longer than for ulcer bleeding), reflecting the higher rebleeding risk of a variceal source.",
         "[H] Prophylactic antibiotics (e.g. ceftriaxone) reduce infection, rebleeding, and mortality in cirrhotic UGIB.",
         "[H] TIPS (transjugular intrahepatic portosystemic shunt) is recommended for persistent/recurrent bleeding despite endoscopic + medical therapy, and for acute variceal bleeding in Child-Pugh B with active bleeding or Child-Pugh C (10-13 points).",
         "[H] Long term: nonselective beta blockade (propranolol, nadolol, or increasingly carvedilol) plus endoscopic ligation is more effective than either alone for secondary prophylaxis."
@@ -6442,7 +6482,7 @@ Glasgow-Blatchford score
     immediate: [
       "Hemodynamic assessment and resuscitation: IV access, crystalloid, type & cross [H]",
       "Risk-stratify with Glasgow-Blatchford score; score >=2 requires admission [H]",
-      "Start PPI infusion pre-endoscopy (reduces high-risk stigmata) [H]",
+      "Start PPI infusion pre-endoscopy (reduces high-risk stigmata) [H]; if high-risk ulcer stigmata found at endoscopy, continue high-dose PPI - IV bolus 80 mg then 8 mg/h infusion, or intermittent 40 mg PO/IV 2-4 times/day - for 3 days [H]",
       "Erythromycin 250 mg IV 30-90 min before endoscopy to improve visualization [H]",
       "If cirrhotic/suspected variceal source: start antibiotic (e.g. ceftriaxone) + vasoactive drug (octreotide 50 mcg bolus then 50 mcg/h) immediately, before endoscopy [H]",
       "Restrictive transfusion strategy: transfuse at hemoglobin <7 g/dL [H]",
@@ -6708,6 +6748,8 @@ Reassess at 48-72h:
     for severe disease` },
       { ul: [
         "[H] Fluid resuscitation is the single most important intervention; a falling hematocrit and BUN over the first 12-24h is strong evidence of adequate resuscitation, while a rising BUN predicts higher mortality.",
+        "[H] Lactated Ringer's lowers systemic inflammation (lower CRP) versus normal saline and is the preferred crystalloid; target urine output is >0.5 mL/kg/h. Monitor with serial bedside evaluation (vitals, O2 saturation, exam) every 6-8 h, plus hematocrit and BUN every 8-12 h, to confirm adequate resuscitation and guide further fluid titration.",
+        "[H] Additional admission risk factors for increased severity: age >60 years, obesity (BMI >30 kg/m2), and comorbid disease; admission hematocrit >44% and admission BUN >20 mg/dL are each independently associated with more severe disease.",
         "[H] Enteral nutrition (gastric or jejunal - gastric feeding is safe and benefits of jejunal feeding over gastric remain unproven) is preferred over TPN as it preserves gut barrier integrity, reduces bacterial translocation, costs less, and has fewer complications.",
         "[H] Gallstone pancreatitis with cholangitis/biliary obstruction: ERCP within 24-48h; cholecystectomy during the same admission is recommended for mild gallstone pancreatitis to prevent recurrence; timing is individualized if necrotizing.",
         "[H] Hypertriglyceridemic pancreatitis: IV insulin (corrects hyperglycemia and often hypertriglyceridemia); fasting for 24-36h; heparin/plasmapheresis lack compelling evidence.",
@@ -6763,6 +6805,7 @@ Reassess at 48-72h:
     ],
     immediate: [
       "Early IV fluid resuscitation with lactated Ringer's - moderate strategy (~10 mL/kg bolus then ~1.5 mL/kg/h) preferred over very aggressive regimens [H]",
+      "Target urine output >0.5 mL/kg/h; reassess with bedside vitals/exam every 6-8 h and hematocrit/BUN every 8-12 h to confirm adequate resuscitation [H]",
       "IV analgesia, NPO initially, supplemental O2 as needed [H]",
       "Severity assessment (BISAP, SIRS, hematocrit/BUN trend) to triage to ward, step-down, or ICU [H]",
       "Start enteral nutrition (gastric or jejunal), NOT TPN, 2-3 days after admission for severe disease [H]",
@@ -6946,6 +6989,8 @@ Bleeding controlled?
       { sub: "Coagulopathy, bone disease, and hematologic abnormalities [H]" },
       { ul: [
         "[H] Decreased hepatic synthesis of both pro- and anticoagulant factors causes a rebalanced but unstable coagulation state; INR/PT are unreliable measures of bleeding risk in cirrhosis and should not be used alone to guide prophylactic correction.",
+        "[H] Adequate thrombin generation can still occur at platelet counts >50,000-60,000/uL in cirrhosis; vitamin K-dependent factors II, VII, IX, X are reduced with chronic cholestasis (poor bile flow impairs vitamin K absorption) and can be corrected quickly with IV or IM vitamin K.",
+        "[H] Standard pharmacologic DVT prophylaxis is generally recommended for hospitalized cirrhotic patients; routine correction of INR before procedures or with variceal bleeding is generally NOT required.",
         "[H] Thrombocytopenia, leukopenia, and hemolytic anemia commonly result from hypersplenism due to portal hypertension.",
         "[H] Metabolic bone disease (osteopenia/osteoporosis) occurs especially in cholestatic liver diseases (PBC, PSC); fat-soluble vitamin deficiencies (A, D, E, K) should be assessed when bilirubin >2 mg/dL."
       ]},
@@ -19332,7 +19377,7 @@ refs: [
 2) Impending/early SE (0-5 to 30 min): IV benzodiazepine - lorazepam 0.1 mg/kg, OR midazolam 0.2 mg/kg (IM/buccal if no IV access), OR clonazepam 0.015 mg/kg.
 3) Simultaneously load an IV antiseizure drug - phenytoin/fosphenytoin 20 mg/kg, OR valproic acid 20-30 mg/kg, OR levetiracetam 20-30 mg/kg.
 4) Established/early refractory SE (30 min-48 h) if seizures persist: IV midazolam infusion 0.2 mg/kg bolus then 0.2-0.6 mg/kg/h, and/or IV propofol 2 mg/kg bolus then 2-10 mg/kg/h; add further IV/PO antiseizure drug (valproate, levetiracetam, lacosamide, topiramate, pregabalin).
-5) Late refractory SE (>48 h): pentobarbital/thiopental anesthesia (5 mg/kg load then 1-5 mg/kg/h), or other anesthetics (isoflurane, desflurane, ketamine); consider other approaches (surgery, VNS, RNS, rTMS, ECT, therapeutic hypothermia) in exceptional cases.
+5) Late refractory SE (>48 h): pentobarbital 5 mg/kg load (thiopental 1 mg/kg load) then 1-5 mg/kg/h infusion for either; or other anesthetics (isoflurane, desflurane, ketamine); other medications sometimes tried (lidocaine, verapamil, magnesium, ketogenic diet, immunomodulation); consider other approaches (surgery, VNS, RNS, rTMS, ECT, therapeutic hypothermia) in exceptional cases.
 6) Continuous EEG monitoring throughout if the patient remains unresponsive after apparent cessation of overt seizures, to exclude ongoing nonconvulsive status (especially if paralyzed for airway protection).` },
       { ul: [
         "[H] GCSE is a medical emergency: cardiorespiratory dysfunction, hyperthermia, and metabolic derangement from prolonged seizures can cause irreversible CNS injury even if the patient is paralyzed but still having electrographic seizures.",
@@ -19368,7 +19413,7 @@ refs: [
       "0-5 to 30 min: IV benzodiazepine - lorazepam 0.1 mg/kg, OR midazolam 0.2 mg/kg (IM/buccal if no IV access), OR clonazepam 0.015 mg/kg [H]",
       "Simultaneously load an IV antiseizure drug: phenytoin/fosphenytoin 20 mg/kg, OR valproic acid 20-30 mg/kg, OR levetiracetam 20-30 mg/kg [H]",
       "30 min-48h if seizures persist: IV midazolam infusion 0.2 mg/kg bolus then 0.2-0.6 mg/kg/h, and/or IV propofol 2 mg/kg bolus then 2-10 mg/kg/h; add further IV/PO antiseizure drug [H]",
-      ">48h refractory SE: pentobarbital/thiopental anesthesia (5 mg/kg load then 1-5 mg/kg/h) or other anesthetics (isoflurane, desflurane, ketamine) [H]",
+      ">48h refractory SE: pentobarbital 5 mg/kg load (thiopental 1 mg/kg load) then 1-5 mg/kg/h infusion, or other anesthetics (isoflurane, desflurane, ketamine); other medications occasionally tried include lidocaine, verapamil, magnesium, ketogenic diet, and immunomodulation [H]",
       "Continuous EEG monitoring if the patient remains unresponsive after apparent cessation of overt seizures, especially if paralyzed for airway protection [H]",
       "Treat NCSE with the same urgency as GCSE once recognized [H]"
     ],
@@ -19458,7 +19503,10 @@ refs: [
         "[H] Minor stroke with nondisabling deficit (NIHSS 0-5) may be managed with aspirin or short-term dual antiplatelet therapy (aspirin + clopidogrel) as well as or instead of IV rtPA.",
         "[H] Endovascular thrombectomy: proven benefit for ICA/MCA occlusions within 6 h by CTA (meta-analysis OR 2.49 for good outcome); basilar occlusion thrombectomy appears safe and beneficial up to 24 h based on nonrandomized data.",
         "[H] Cerebellar infarction with deterioration: suboccipital decompressive surgery before significant brainstem compression develops; large hemispheric infarction with malignant edema: hemicraniectomy reduces mortality by ~50%, greatest benefit if performed before herniation, benefit attenuated but still present in patients >60.",
-        "[H] Avoid hypovolemia (worsens infarction); permissive hypertension in the acute phase (allow higher BP for first days-weeks to support collateral flow) before transitioning to long-term BP control; suppress fever and hyperglycemia (>11.1 mmol/L / 200 mg/dL) as both worsen ischemic injury."
+        "[H] Avoid hypovolemia (worsens infarction); permissive hypertension in the acute phase (allow higher BP for first days-weeks to support collateral flow) before transitioning to long-term BP control; suppress fever and hyperglycemia (>11.1 mmol/L / 200 mg/dL) as both worsen ischemic injury.",
+        "[H] BP reduction thresholds: lower BP only if >220/120 mmHg in a patient not receiving thrombolysis, or if malignant hypertension/concomitant myocardial ischemia is present, or if >185/110 mmHg with thrombolysis planned/given. A beta1-adrenergic blocker such as esmolol is a reasonable first agent to lower BP while minimizing added cardiac workload. Fever is treated with antipyretics and surface cooling; serum glucose is kept <10.0 mmol/L (180 mg/dL) and above 3.3 mmol/L (60 mg/dL) - more intensive glucose control does not improve outcome.",
+        "[H] Cerebral edema (develops in 5-10% of patients, peaks day 2-3, can cause mass effect for ~10 days): water restriction and IV mannitol or hypertonic saline to raise serum osmolarity, avoiding hypovolemia, which can worsen infarction and hypotension.",
+        "[+] A lower alteplase dose of 0.6 mg/kg (vs the standard 0.9 mg/kg) is commonly used in Japan, China, and other Asian countries, based on observational data in >600 patients showing similar outcomes with a lower rate of intracranial hemorrhage - relevant given a higher reported bleeding propensity with standard-dose thrombolytics/antithrombotics in patients of Asian descent; tenecteplase 0.25 mg/kg is given as an IV push over 5 seconds (max 25 mg)."
       ]},
       { sub: "Secondary prevention" },
       { ul: [
@@ -19500,8 +19548,9 @@ refs: [
       "If onset <4.5h and eligible: IV alteplase 0.9 mg/kg (max 90 mg, 10% bolus then remainder over 60 min), OR tenecteplase 0.25 mg/kg bolus (max 25 mg) [H]",
       "In parallel, obtain CTA to identify large-vessel occlusion [H]",
       "If large-vessel occlusion present: endovascular mechanical thrombectomy regardless of thrombolysis status, up to 6h (ICA/MCA) or up to 24h with favorable perfusion imaging (including basilar occlusion) [H]",
-      "Control BP to <185/110 mmHg before and during thrombolysis; otherwise allow permissive hypertension in the acute phase [H]",
-      "Avoid hypovolemia; treat fever and hyperglycemia (>200 mg/dL), both of which worsen ischemic injury [H]",
+      "Control BP to <185/110 mmHg before and during thrombolysis; otherwise only lower BP if >220/120 mmHg, malignant hypertension, or concomitant myocardial ischemia - esmolol is a reasonable first agent [H]",
+      "Avoid hypovolemia; treat fever (antipyretics/surface cooling) and keep glucose <10.0 mmol/L (180 mg/dL) and >3.3 mmol/L (60 mg/dL) [H]",
+      "Cerebral edema with mass effect (develops in 5-10%, peaks day 2-3): water restriction plus IV mannitol or hypertonic saline, avoiding hypovolemia [H]",
       "Cerebellar infarction with deterioration: suboccipital decompressive surgery before brainstem compression develops [H]",
       "Large hemispheric infarction with malignant edema: hemicraniectomy before herniation (reduces mortality ~50%) [H]"
     ],
@@ -19570,10 +19619,22 @@ refs: [
       { ul: [
         "[H] Early aneurysm repair (within 24 h at many centers) prevents rerupture (30% risk in the first month untreated, peak in first 7 days, 50% mortality with rerupture) and allows safe induced hypertension if vasospasm develops.",
         "[H] Treatment options: endovascular coiling vs surgical clipping - ISAT trial showed coiling had lower death/dependency at 1 year (24% vs 31%) though higher rebleeding rate; surgery remains preferred for aneurysms with unfavorable morphology for coiling or when hematoma evacuation is also needed.",
-        "[H] Nimodipine 60 mg PO every 4 h (oral calcium channel antagonist) reduces poor outcomes from vasospasm/delayed cerebral ischemia and is standard of care.",
+        "[H] Nimodipine 60 mg PO every 4 h (oral calcium channel antagonist) reduces poor outcomes from vasospasm/delayed cerebral ischemia and is standard of care; it can cause significant hypotension, which may worsen cerebral ischemia in patients with vasospasm.",
+        "[H] Symptomatic cerebral vasospasm refractory to nimodipine: induce hypertension by raising MAP via plasma volume expansion plus IV vasopressors (phenylephrine or norepinephrine), with close arterial pressure monitoring (risk of rebleeding in an unsecured aneurysm); prophylactic induced hypertension is not recommended. If vasospasm persists despite optimal medical therapy, endovascular rescue with intra-arterial vasodilators (verapamil/nicardipine, effect lasts <24h) or percutaneous transluminal angioplasty (more durable dilation) can be considered.",
+        "[H] Antifibrinolytic agents are not routinely recommended (no functional outcome benefit, increased risk of delayed cerebral ischemia/DVT); glucocorticoids are not recommended (no evidence of reduced cerebral edema, neuroprotection, or vascular injury despite possibly reducing headache/neck pain).",
+        "[H] Hyponatremia (cerebral salt wasting): oral salt plus normal saline is usually sufficient; IV hypertonic (3%) saline is often needed - correct serum sodium gradually, as overly rapid correction of marked/prolonged hyponatremia risks osmotic demyelination syndrome.",
+        "[H] DVT prophylaxis: pneumatic compression stockings for all patients; subcutaneous unfractionated heparin or LMWH can be started 1-2 days after endovascular treatment or surgical clipping (more effective than compression stockings alone); continuous systemic heparin anticoagulation is contraindicated with a ruptured, unsecured aneurysm.",
         "[H] Manage hydrocephalus (external ventricular drain for acute hydrocephalus/stupor; may require later VP shunt for chronic hydrocephalus), hyponatremia (cerebral salt wasting - do NOT fluid-restrict, as this increases stroke risk; treat with salt/fluid replacement), and blood pressure (keep SBP <160 mmHg prior to aneurysm securing using nicardipine/clevidipine/labetalol if the patient is alert; if depressed consciousness, measure ICP and target cerebral perfusion pressure 60-70 mmHg).",
         "[H] Seizure prophylaxis with a short course (e.g., 7 days) of levetiracetam is reasonable in patients presenting with seizures; routine prolonged prophylaxis is not strongly supported.",
         "[H] Goal-directed euvolemia (avoid hypervolemia, which increases complication risk) while maintaining adequate cerebral perfusion pressure."
+      ]},
+      { sub: "Intracerebral hemorrhage (ICH)-specific acute management" },
+      { ul: [
+        "[H] Blood pressure: aggressive acute lowering of SBP to 130-150 mmHg is often considered in hypertensive ICH (distinct from hypertensive encephalopathy, where less aggressive BP reduction is used); randomized trial data show more intensive BP lowering (SBP target 140 vs 180 mmHg) reduces hematoma expansion in deep (basal ganglia) hemorrhages without a clear functional outcome benefit.",
+        "[H] Any coagulopathy should be corrected as soon as possible: PCC preferred over FFP for VKA reversal (faster, smaller volume); platelet transfusion if ICH with thrombocytopenia <50,000/uL (not beneficial, possibly harmful, if the patient is on antiplatelet drugs without thrombocytopenia).",
+        "[H] Recombinant factor VIIa reduces hematoma expansion but does NOT improve clinical outcomes and is not recommended; tranexamic acid does not alter outcome in ICH and is not recommended.",
+        "[H] If ICP monitoring is in place (marked midline shift, coma, or hydrocephalus): manage CSF drainage, osmotic therapy, and BP together to maintain cerebral perfusion pressure (MAP minus ICP) of 60 to ≥70 mmHg; glucocorticoids are NOT recommended for treatment of ICH.",
+        "[H] Surgical hematoma evacuation: standard craniotomy for supratentorial ICH has not shown clear benefit (STICH/STICH-II); minimally invasive evacuation of lobar hematomas (30-80 mL) within 24h of onset improved functional outcome in the 2024 ENRICH trial in selected patients (GCS 5-14, pre-ICH functionally independent)."
       ]},
       { sub: "Subdural hematoma" },
       { ul: [
@@ -19608,8 +19669,10 @@ refs: [
     immediate: [
       "Noncontrast CT emergently; if negative but suspicion remains high, lumbar puncture for xanthochromia [H]",
       "Early aneurysm repair (within 24h at many centers) via endovascular coiling or surgical clipping to prevent rerupture [H]",
-      "Nimodipine 60 mg PO every 4h to reduce poor outcomes from vasospasm/delayed cerebral ischemia [H]",
+      "Nimodipine 60 mg PO every 4h to reduce poor outcomes from vasospasm/delayed cerebral ischemia - watch for significant hypotension [H]",
       "Control BP: keep SBP <160 mmHg pre-securing (nicardipine/clevidipine/labetalol) if alert; if depressed consciousness, monitor ICP and target cerebral perfusion pressure 60-70 mmHg [H]",
+      "Refractory symptomatic vasospasm: induced hypertension (plasma volume expansion + phenylephrine or norepinephrine) with close arterial pressure monitoring, or endovascular intra-arterial vasodilators/angioplasty [H]",
+      "For ICH specifically: acutely lower SBP to 130-150 mmHg; correct coagulopathy with PCC (preferred over FFP) + vitamin K; do NOT use recombinant factor VIIa or tranexamic acid (no outcome benefit); glucocorticoids are not recommended [H]",
       "Manage acute hydrocephalus with external ventricular drain [H]",
       "Hyponatremia (cerebral salt wasting): treat with salt/fluid replacement - do NOT fluid-restrict [H]",
       "Acute symptomatic SDH with mass effect/deterioration: emergent surgical evacuation (craniotomy or burr hole) plus reversal of any coagulopathy/anticoagulation [+]",
@@ -20056,6 +20119,9 @@ refs: [
       { sub: "Chronic/maintenance therapy" },
       { ul: [
         "[H] Anticholinesterase (pyridostigmine): initiated at 30-60 mg three to four times daily, onset 15-30 min, duration 3-4 h; tailor dose/timing to symptom pattern (e.g., dose before meals for chewing/swallowing weakness); maximum useful dose rarely exceeds 360-480 mg/day. Muscarinic side effects (diarrhea, cramps, salivation) managed with loperamide/atropine-diphenoxylate. Provides only partial improvement in most patients; MuSK-positive patients generally respond less well and may worsen.",
+        "[H] Glucocorticoids (prednisone): for ocular/mild generalized weakness, start low (15-25 mg/d) and increase stepwise by ~5 mg/d every 7-14 days until marked improvement or 50-60 mg/d is reached (full effect of a given dose takes 2-3 weeks); more severely weak/hospitalized patients can start at high dose, typically after IVIg/plasma exchange pretreatment to protect against early steroid-associated worsening. Taper no faster than 10 mg/month until 20 mg daily, then 2.5-5 mg every 1-3 months to find the minimum effective dose.",
+        "[H] Rituximab (anti-CD20): for MuSK-antibody-positive MG, 1 g IV on two occasions 2 weeks apart, with a repeat course periodically (some patients can go 2-3 years between infusions) - can induce prolonged remissions in this subgroup.",
+        "[H] Plasma exchange: 5-6 exchanges of 3-4 L each, generally over a 10- to 14-day period, producing short-term reduction in anti-AChR antibodies; most useful as temporary treatment in severely affected patients or pre-thymectomy. IVIg: usual dose 2 g/kg, typically given over 2-5 days; ~70% of patients improve, beginning during treatment or within a week and lasting weeks to months.",
         "[H] Thymectomy: indicated for thymoma (oncologic reasons) regardless of MG status. For nonthymomatous AChR-antibody-positive generalized MG, the MGTX trial showed extended transsternal thymectomy improved strength/function and reduced glucocorticoid/second-line drug requirements over 3+ years; patients with ocular MG, MuSK-positive, or seronegative MG were excluded and may not benefit. Never performed emergently - optimize strength (IVIg/PLEX if needed) before elective surgery.",
         "[H] Immunotherapy choice is guided by urgency and risk-benefit: glucocorticoids and steroid-sparing agents (azathioprine, mycophenolate, etc.) for chronic control; rituximab, complement inhibitors (eculizumab, ravulizumab, zilucoplan) and neonatal Fc receptor (FcRn) antagonists (efgartigimod, rozanolixizumab) are newer targeted options, particularly for AChR-antibody-positive refractory disease.",
         "[H] IVIg or plasma exchange provide rapid but temporary improvement, used when immediate benefit is needed (severe weakness, pre-thymectomy optimization, or crisis) - no consistent effect on circulating AChR antibody titer despite clinical benefit."
@@ -20069,7 +20135,7 @@ refs: [
 5) Supportive ICU care: careful fluid/electrolyte management, DVT prophylaxis, nutrition, early mobilization once stabilized, and ventilator weaning guided by respiratory mechanics once strength improves.
 6) Identify and treat the precipitant (infection, new offending drug, tapering of maintenance immunosuppression) to prevent recurrence.` },
       { ul: [
-        "[H] Drugs that can precipitate or worsen MG weakness (avoid or use cautiously; Table 459-5 category): aminoglycosides and certain other antibiotics, beta blockers, magnesium, some antiarrhythmics, botulinum toxin, and immune checkpoint inhibitors (which can trigger a severe de novo myositis-myasthenia overlap syndrome)."
+        "[H] Drugs that can precipitate or worsen MG weakness (Table 459-5): aminoglycosides (streptomycin, tobramycin, kanamycin), fluoroquinolones (ciprofloxacin, levofloxacin, ofloxacin, gatifloxacin), macrolides (erythromycin, azithromycin), beta blockers (propranolol, atenolol, metoprolol), magnesium (decreases ACh release), nondepolarizing neuromuscular blockers for surgery (curare, pancuronium, vecuronium, atracurium), local anesthetics/antiarrhythmics (procaine, large-dose xylocaine, procainamide), botulinum toxin, quinine derivatives (quinine, quinidine, chloroquine, mefloquine), penicillamine, and immune checkpoint inhibitors (which can trigger a severe de novo myositis-myasthenia overlap syndrome)."
       ]}
     ]},
     { h: "6. Complications and follow-up", body: [
@@ -20099,7 +20165,7 @@ refs: [
       "Admit to an ICU experienced in MG management [H]",
       "Serial bedside spirometry (FVC, negative inspiratory force) to track respiratory reserve and trigger timely elective intubation before a respiratory crash [H]",
       "Consider holding pyridostigmine temporarily to simplify assessment and exclude cholinergic crisis, resuming once stabilized [H]",
-      "Rapid immunotherapy: IVIg or plasmapheresis for fast but temporary improvement [H]",
+      "Rapid immunotherapy: IVIg 2 g/kg over 2-5 days, OR plasma exchange (5-6 exchanges of 3-4 L each over 10-14 days) for fast but temporary improvement [H]",
       "Do not reflexively increase baseline immunosuppression dose during the acute crisis itself [H]",
       "Supportive ICU care: fluid/electrolyte management, DVT prophylaxis, nutrition, early mobilization, ventilator weaning guided by respiratory mechanics [H]",
       "Identify and treat the precipitant (infection, new offending drug, tapering of maintenance immunosuppression) to prevent recurrence [H]"
@@ -20412,7 +20478,9 @@ refs: [
 7) Provide specific systemic therapy for the underlying tumor type as part of comprehensive management.` },
       { ul: [
         "[H] Glucocorticoids reduce cord edema and can produce rapid symptomatic improvement even before definitive treatment is arranged - this is why empiric dexamethasone is given on clinical suspicion rather than waiting for imaging confirmation.",
-        "[H] Spinal epidural abscess: prompt broad-spectrum antibiotics, drainage of abscess cavities, and identification of the causative organism; anticoagulation may benefit cases of associated primary venous thrombosis; surgical decompression is generally indicated once neurologic deficit appears, as progression can be rapid and irreversible if treatment is delayed.",
+        "[H] Prognosis is sharply time-dependent: motor deficits (paraplegia/quadriplegia) established for >12 h do not usually improve, and beyond 48 h the prognosis for substantial motor recovery is poor - reinforcing same-day steroids and imaging. Up to 40% of patients with cord compression at one level harbor additional asymptomatic epidural metastases elsewhere, supporting whole-spine MRI.",
+        "[H] If there are radicular symptoms but no evidence of myelopathy, it may be safe to defer imaging 24-48 h; once myelopathy signs appear, imaging must be obtained promptly.",
+        "[H] Spinal epidural abscess: prompt broad-spectrum antibiotics (covering MRSA, a leading pathogen), drainage of abscess cavities, and identification of the causative organism; anticoagulation may benefit cases of associated primary venous thrombosis; surgical decompression is generally indicated once neurologic deficit appears, as progression can be rapid and irreversible if treatment is delayed. Pain typically precedes diagnosis by up to 2 weeks (occasionally longer).",
         "[+] Spinal epidural hematoma (including anticoagulation-related or post-procedural) similarly requires urgent surgical decompression when there is progressive deficit, with substantial recovery possible if decompression occurs promptly."
       ]}
     ]},
@@ -20420,6 +20488,11 @@ refs: [
       { ul: [
         "[H] The single greatest predictor of functional outcome after treatment for malignant cord compression is the neurologic status (ambulatory vs not) at the time treatment begins - this underscores the emergency nature of the diagnosis and the rationale for empiric glucocorticoids pending imaging.",
         "[+] Bladder/bowel dysfunction, once established, may not fully recover even with prompt decompression - early catheterization and bowel regimen are needed regardless of motor recovery.",
+        "[H] Detrusor spasticity: anticholinergics (oxybutynin 2.5-5 mg qid) or tricyclic antidepressants with anticholinergic properties (imipramine 25-200 mg/d); urinary dyssynergia (failure of sphincter relaxation): alpha-blocker terazosin 1-2 mg tid-qid plus intermittent catheterization.",
+        "[H] DVT/PE prophylaxis: calf-compression devices plus LMWH; in persistent paralysis, anticoagulation should probably be continued for 3 months.",
+        "[H] Spasticity: baclofen up to 240 mg/d in divided doses (GABA-mediated inhibition of reflex arcs); diazepam 2-4 mg at bedtime for nocturnal spasms; tizanidine 2-8 mg tid (alpha2-agonist); dantrolene 25-100 mg qid for nonambulatory patients (potentially hepatotoxic); refractory spasticity may need intrathecal baclofen pump, botulinum toxin injections, or dorsal rhizotomy.",
+        "[H] Chronic neuropathic pain from cord injury: gabapentin or pregabalin have randomized-trial support; epidural stimulation and intrathecal pain medication infusion are options in refractory cases.",
+        "[H] Autonomic hyperreflexia (lesions above T6): headache, flushing, diaphoresis above the lesion level with hypertension and bradycardia/tachycardia, triggered by a noxious stimulus below the lesion (bladder/bowel distention, UTI, decubitus ulcer) - treat by removing the trigger; ganglionic blockers (mecamylamine 2.5-5 mg) or other short-acting antihypertensives if needed.",
         "[+] Following treatment, patients require ongoing oncologic management of the underlying malignancy, rehabilitation for any residual deficit, and surveillance imaging given the risk of additional or recurrent epidural metastases.",
         "[+] As with other oncologic emergencies (compare [[svc_syndrome]]), multidisciplinary coordination between oncology, radiation oncology, neurosurgery/orthopedic spine surgery, and radiology is essential to minimize time to definitive treatment."
       ]}
@@ -20446,7 +20519,8 @@ refs: [
       "Stereotactic body radiotherapy for radioresistant tumors or re-irradiation cases [H]",
       "Surgery (laminectomy/fixation) also indicated for recurrence at a previously irradiated site, compression fracture/instability, or high-grade compression from a radioresistant tumor [H]",
       "Spinal epidural abscess: prompt broad-spectrum antibiotics, drainage of abscess cavities, and surgical decompression once neurologic deficit appears [H]",
-      "Spinal epidural hematoma with progressive deficit: urgent surgical decompression [+]"
+      "Spinal epidural hematoma with progressive deficit: urgent surgical decompression [+]",
+      "Act within hours: deficits established >12h rarely improve, and beyond 48h the prognosis for motor recovery is poor [H]"
     ],
     workup: [
       "Emergent MRI with gadolinium centered on the suspected level - the initial diagnostic procedure of choice [H]",
@@ -21503,13 +21577,18 @@ refs: [
       { ul: [
         "Urinary alkalinization (urine pH >=7.5, output 3-6 mL/kg/h via IV sodium bicarbonate): salicylates, phenobarbital, chlorpropamide, methotrexate, fluoride. Contraindicated in CHF, renal failure, cerebral edema.",
         "Extracorporeal removal (hemodialysis preferred over hemoperfusion with modern technology): best for agents with low molecular weight (<500 Da), high water solubility, low protein binding, small volume of distribution (<1 L/kg). Indicated for severe carbamazepine, ethylene glycol, isopropyl alcohol, lithium, methanol, theophylline, salicylate, valproate poisoning.",
+        "[H] Specific quantitative thresholds that trigger antidote/dialysis per Table 470-4: ethylene glycol - give ethanol or fomepizole if level >3 mmol/L (20 mg/dL) or ethanol-like intoxication/increased osmolal gap, hemodialysis if level >8 mmol/L (50 mg/dL) or persistent AGMA/renal dysfunction; methanol - antidote if level >6 mmol/L (20 mg/dL), hemodialysis if >15 mmol/L (50 mg/dL); salicylate - hemodialysis if level >7 mmol/L (100 mg/dL) after acute overdose or for coma, cerebral/pulmonary edema, renal failure; iron - IV deferoxamine for systemic toxicity or level >90 umol/L (500 ug/dL); lithium - hemodialysis for coma, seizures, encephalopathy, or peak level >4 meq/L after acute overdose; theophylline - hemoperfusion/hemodialysis for unstable vitals, seizures, or level 80-100 ug/mL (acute) / 40-60 ug/mL (chronic).",
         "Chelation enhances elimination of heavy metals (see Chapter 469 for agent-specific chelator details); hyperbaric oxygen accelerates CO elimination."
       ]},
       { sub: "Supportive care priorities [H]" },
       { ul: [
         "Airway protection (intubation) for CNS depression/seizures to prevent aspiration - gag reflex is NOT a reliable indicator of need for intubation.",
-        "Cardiovascular support: isotonic fluids first-line for hypotension; norepinephrine/epinephrine/high-dose dopamine if refractory. Sodium bicarbonate for ventricular dysrhythmia from membrane-active agents (TCAs); AVOID class IA/IC/III antiarrhythmics in this setting (similar electrophysiologic mechanism worsens toxicity).",
-        "Seizures: benzodiazepines/barbiturates (enhance GABA activity) - mechanistically appropriate for most toxicologic seizures; phenytoin is CONTRAINDICATED in toxicologic seizures (worse outcomes demonstrated, especially theophylline overdose); pyridoxine (vitamin B6) specifically for isoniazid-induced seizures."
+        "Cardiovascular support: isotonic fluids first-line for hypotension; norepinephrine/epinephrine/high-dose dopamine if refractory. Sodium bicarbonate for ventricular dysrhythmia from membrane-active agents (TCAs); AVOID class IA/IC/III antiarrhythmics in this setting (similar electrophysiologic mechanism worsens toxicity). IV lipid emulsion therapy has shown benefit for arrhythmias/hemodynamic instability from various membrane-active agents (e.g., cyclic antidepressants) and local anesthetics, though the mechanism of benefit remains under investigation.",
+        "Seizures: benzodiazepines/barbiturates (enhance GABA activity) - mechanistically appropriate for most toxicologic seizures; phenytoin is CONTRAINDICATED in toxicologic seizures (worse outcomes demonstrated, especially theophylline overdose); high-dose IV pyridoxine (vitamin B6) specifically for isoniazid-induced agitation, confusion, coma, and seizures.",
+        "[H] Cholinergic (organophosphate/carbamate/nerve agent) poisoning: atropine for muscarinic signs and symptoms; 2-PAM (pralidoxime), a cholinesterase reactivator, for nicotinic signs and symptoms due to organophosphates, nerve gases, or an unknown anticholinesterase.",
+        "[H] Cyanide or hydrogen sulfide (cytochrome oxidase inhibitor) poisoning, or victims from a fire with coma/metabolic acidosis/cardiovascular dysfunction: high-dose oxygen plus IV hydroxocobalamin, or IV sodium nitrite and sodium thiosulfate (the Lilly cyanide antidote kit); consider ECMO.",
+        "[H] Methemoglobinemia: high-dose oxygen plus IV methylene blue for a methemoglobin fraction >30% or symptomatic hypoxemia/ischemia (methylene blue is CONTRAINDICATED in G6PD deficiency, where it can precipitate hemolysis); exchange transfusion and hyperbaric oxygen for severe or refractory cases.",
+        "[H] Serotonin syndrome: discontinue the offending agent(s); benzodiazepines for agitation/neuromuscular hyperactivity; the serotonin receptor antagonist cyproheptadine may be helpful in severe cases."
       ]},
       { sub: "ICU admission criteria [H]" },
       { ul: [
@@ -21559,8 +21638,8 @@ refs: [
       "Cardiovascular support: isotonic fluids first-line for hypotension; norepinephrine/epinephrine/high-dose dopamine if refractory",
       "Sodium bicarbonate for ventricular dysrhythmia from membrane-active agents (e.g., TCAs); AVOID class IA/IC/III antiarrhythmics",
       "Seizures: benzodiazepines/barbiturates first-line; phenytoin is CONTRAINDICATED (worse outcomes, especially theophylline overdose); pyridoxine specifically for isoniazid-induced seizures",
-      "Give toxidrome-specific antidotes as identified: naloxone (opioids), atropine + pralidoxime (cholinergic/organophosphate), physostigmine (anticholinergic delirium, if no asthma/cardiac conduction abnormality), glucagon/high-dose insulin-euglycemia (beta-blocker/calcium channel blocker), digoxin-specific antibody fragments (cardiac glycoside), hypertonic sodium bicarbonate (TCA)",
-      "Consider enhanced elimination (urinary alkalinization or hemodialysis) for agents amenable (salicylate, lithium, toxic alcohols, theophylline, valproate, carbamazepine)"
+      "Give toxidrome-specific antidotes as identified: naloxone (opioids), atropine + pralidoxime/2-PAM (cholinergic/organophosphate - atropine for muscarinic, 2-PAM for nicotinic signs), physostigmine (anticholinergic delirium, if no asthma/cardiac conduction abnormality), glucagon/high-dose insulin-euglycemia (beta-blocker/calcium channel blocker), digoxin-specific antibody fragments (cardiac glycoside), hypertonic sodium bicarbonate or IV lipid emulsion (TCA/membrane-active agents), high-dose O2 plus IV hydroxocobalamin or sodium nitrite/thiosulfate (cyanide/Lilly kit), IV methylene blue for methemoglobin >30%/symptomatic (contraindicated in G6PD deficiency), cyproheptadine for severe serotonin syndrome",
+      "Consider enhanced elimination (urinary alkalinization or hemodialysis) for agents amenable (salicylate >7 mmol/L [100 mg/dL], lithium peak >4 meq/L, toxic alcohols [ethylene glycol >8 mmol/L/50 mg/dL, methanol >15 mmol/L/50 mg/dL], theophylline 80-100 ug/mL acute, valproate, carbamazepine)"
     ],
     workup: [
       "Electrolytes/anion gap, osmolal gap, glucose, renal function",
@@ -21677,6 +21756,8 @@ refs: [
         "Indications (viperid/cytotoxic elapid): significant progressive local findings (rapidly spreading swelling, swelling involving >half the limb, extensive blistering/bruising, severe pain) OR any evidence of systemic envenomation.",
         "Indications (neurotoxic elapid): at the FIRST SIGN of neurotoxicity (cranial nerve dysfunction, peripheral neuropathy) - antivenom reverses ACTIVE toxicity only, not already-established paralysis/renal failure, which improve only with time/supportive care.",
         "Administration: IV ONLY, slow start with clinician at bedside, gradually increased if no reaction, full starting dose over ~1 hour. Continue for viperid bites until definite improvement (reduced pain, stabilized vitals, restored coagulation).",
+        "[H] US/Canada reference dosing detail (CroFab/Anavip for pit vipers - illustrates general antivenom administration principles; verify exact Thai Red Cross product vial counts/dosing locally per this note's stamp caveat): starting dose by severity - moderate envenomation CroFab 4-6 vials or Anavip 10 vials, severe envenomation CroFab 6 vials or Anavip 10 vials; dilute reconstituted vials in 250 mL normal saline and infuse IV over ~1 hour, starting at 25-50 mL/h for the first 10 minutes then increasing to 250 mL/h if no allergic reaction; if the patient's condition is progressing or unimproved after 1 hour, repeat the starting dose; for maintenance after initial control, additional CroFab 2 vials q6h for 3 further doses (or Anavip 4 vials for recurrent coagulopathy).",
+        "[+] Limited evidence from Sri Lanka supports routine pretreatment with low-dose subcutaneous epinephrine (0.25 mg of 1:1000 aqueous solution) before antivenom infusion to reduce acute hypersensitivity reactions in that population; prophylactic antihistamines/glucocorticoids have not proved beneficial, and this is not universally adopted practice - verify against current Thai protocol.",
         "Once neurotoxicity from elapid bite is established and intubation required, further antivenom doses are UNLIKELY to help - maintain mechanical ventilation until recovery (may take days to weeks).",
         "[+] In Thailand, use Thai Red Cross (Queen Saovabha Memorial Institute) monovalent or polyvalent antivenoms matched to the regionally confirmed/suspected species (e.g., green pit viper antivenom, Malayan pit viper antivenom, Russell's viper antivenom, cobra antivenom, krait antivenom) rather than the US-specific CroFab/Anavip products referenced in Harrison's North American table."
       ]},
@@ -22593,7 +22674,8 @@ STEP 4 - EMERGENCY HEMODIALYSIS INDICATIONS (any of the following)
         "[H] Allopurinol 300 mg/m2/day is the standard preventive approach, combined with aggressive hydration.",
         "[H] Febuxostat (potent nonpurine selective xanthine oxidase inhibitor) is indicated for hyperuricemia treatment, achieves significantly superior uric acid control versus allopurinol in intermediate-to-high-risk hematologic malignancy patients, causes fewer hypersensitivity reactions, and requires no dose adjustment in mild-moderate renal impairment - preferred in allopurinol allergy or renal failure.",
         "[H] Recombinant urate oxidase (rasburicase) 0.2 mg/kg IV daily is used when uric acid/creatinine remain elevated despite allopurinol/hydration, or upfront in high-risk patients per many protocols.",
-        "[+] G6PD deficiency must be excluded before giving rasburicase - it generates hydrogen peroxide as a byproduct of uric acid degradation, which can precipitate severe/fatal oxidative hemolysis in G6PD-deficient patients; this is especially relevant given the regional prevalence of G6PD deficiency (see [[onc_g6pd_hemolytic]])."
+        "[+] G6PD deficiency must be excluded before giving rasburicase - it generates hydrogen peroxide as a byproduct of uric acid degradation, which can precipitate severe/fatal oxidative hemolysis in G6PD-deficient patients; this is especially relevant given the regional prevalence of G6PD deficiency (see [[onc_g6pd_hemolytic]]).",
+        "[H] Rasburicase causes ongoing ex vivo degradation of uric acid within the blood sample itself at room temperature, producing spuriously low measured uric acid levels - blood samples for uric acid monitoring must be placed on ice and processed immediately after a rasburicase dose to avoid this artifact."
       ]},
       { sub: "Electrolyte and renal management [H][+]" },
       { ul: [
@@ -22601,7 +22683,7 @@ STEP 4 - EMERGENCY HEMODIALYSIS INDICATIONS (any of the following)
         "[+] Hyperkalemia: standard acute management (calcium gluconate for cardiac membrane stabilization, insulin/glucose and beta-agonist to shift potassium intracellularly, potassium binders, and dialysis if refractory or severe per the criteria above).",
         "[+] Hyperphosphatemia: phosphate binders and hydration; avoid calcium administration unless the patient is symptomatic from hypocalcemia (tetany, seizures, arrhythmia), since correcting calcium in the face of hyperphosphatemia risks further calcium-phosphate precipitation.",
         "[+] Symptomatic hypocalcemia (tetany, seizure, arrhythmia) should be treated with calcium even though asymptomatic hypocalcemia is typically left uncorrected.",
-        "[H] Hemodialysis is indicated for refractory hyperkalemia, severe hyperuricemia/hyperphosphatemia/creatinine elevation as above, or symptomatic hypocalcemia unresponsive to initial measures."
+        "[H] Hemodialysis is indicated for refractory hyperkalemia, severe hyperuricemia/hyperphosphatemia/creatinine elevation as above, or symptomatic hypocalcemia unresponsive to initial measures; hemodialysis is preferred, but hemofiltration offers a gradual, continuous method of removing cellular byproducts and fluid when hemodialysis is not tolerated hemodynamically."
       ]}
     ]},
     { h: "6. Complications and follow-up", body: [
@@ -22664,7 +22746,8 @@ STEP 4 - EMERGENCY HEMODIALYSIS INDICATIONS (any of the following)
       "Giving calcium for asymptomatic hypocalcemia - worsens calcium-phosphate precipitation and renal injury",
       "Giving rasburicase without checking G6PD status - risk of severe/fatal hemolysis",
       "Alkalinizing the urine, which is no longer recommended and can worsen xanthine/calcium phosphate crystallization",
-      "Missing pseudohyperkalemia in markedly elevated WBC/platelet counts and over-treating a falsely high potassium"
+      "Missing pseudohyperkalemia in markedly elevated WBC/platelet counts and over-treating a falsely high potassium",
+      "Drawing uric acid samples without icing/immediate processing after rasburicase - ongoing ex vivo enzymatic activity gives a spuriously low result and can mask true treatment failure"
     ]
   },
   oral: "A patient with Burkitt lymphoma and high LDH is about to start induction chemotherapy - outline your TLS prophylaxis plan. Why is urinary alkalinization no longer recommended in TLS prevention? Before giving rasburicase, what single test must you check, and why?",
@@ -22987,7 +23070,8 @@ and different pain syndromes call for different preferred agents.`}
       { ul: [
         "[H] Protamine sulfate: 1 mg neutralizes 100 units of unfractionated heparin; given IV, maximum 50 mg per dose; watch for anaphylactoid reactions.",
         "[H] For LMWH, protamine completely reverses anti-IIa activity but only partially reverses anti-Xa activity (the pentasaccharide-containing chains of LMWH do not bind protamine well) - reversal is therefore incomplete.",
-        "[H] Fondaparinux: protamine has NO effect (does not bind the drug); no licensed antidote exists; andexanet alfa shows some anticoagulant-reversing effect in volunteers but is unlicensed for this indication."
+        "[H] Fondaparinux: protamine has NO effect (does not bind the drug); no licensed antidote exists; andexanet alfa shows some anticoagulant-reversing effect in volunteers but is unlicensed for this indication.",
+        "[H] Heparin-induced thrombocytopenia (HIT): stop all heparin immediately and give an alternative anticoagulant - argatroban (continuous IV infusion, titrated to an aPTT 1.5-3x baseline not exceeding 100 s; hepatically metabolized, preferred in severe renal disease), bivalirudin, fondaparinux, or rivaroxaban. Do NOT give platelet transfusions. Do NOT give warfarin until the platelet count has returned to baseline (risk of warfarin-induced skin necrosis from a further drop in protein C); if warfarin was already given, give vitamin K to restore the INR to normal."
       ]},
       { sub: "DOAC reversal [H]" },
       { ul: [
@@ -23030,7 +23114,8 @@ and different pain syndromes call for different preferred agents.`}
       "Vitamin K does NOT work for DOAC-related bleeding - do not give it expecting reversal",
       "Andexanet alfa also reverses heparin/LMWH - caution before cardiac/vascular surgery requiring intraoperative heparin",
       "Fondaparinux bleeding has no reliable reversal agent",
-      "DOAC level >24h post-last-dose is unlikely the cause of bleeding unless renal function is markedly impaired"
+      "DOAC level >24h post-last-dose is unlikely the cause of bleeding unless renal function is markedly impaired",
+      "HIT: never give platelet transfusions or start warfarin until the platelet count normalizes - use argatroban, bivalirudin, fondaparinux, or rivaroxaban instead"
     ],
     mnemonic: "'ID the Andexanet' - dabIgatran -> IDarucizumab; rivaroxaban/apixaban -> ANDEXanet."
   },
@@ -23102,7 +23187,7 @@ sections: [
       ["Overlapping obstructive disorders", "Heart failure; COPD; alpha-1 antitrypsin deficiency; airway obstruction from mass/foreign body; inducible laryngeal obstruction (vocal cord dysfunction); bronchiolitis obliterans; bronchiectasis; tracheobronchomalacia"],
       ["Comorbidities that worsen control", "Chronic rhinosinusitis +/- nasal polyposis; obesity; GERD; inducible laryngeal obstruction; COPD overlap; anxiety/depression; obstructive sleep apnea"]
     ]}},
-    "[H] Aspirin-exacerbated respiratory disease (AERD, 5-10% of adults with difficult-to-control asthma): type 2 inflammation with eosinophilia, sinusitis, nasal polyposis, severe exacerbations precipitated by COX-1 inhibitors (aspirin/NSAIDs); COX-2 inhibitors and acetaminophen generally tolerated.",
+    "[H] Aspirin-exacerbated respiratory disease (AERD, 5-10% of adults with difficult-to-control asthma): type 2 inflammation with eosinophilia, sinusitis, nasal polyposis, severe exacerbations precipitated by COX-1 inhibitors (aspirin/NSAIDs); COX-2 inhibitors and acetaminophen generally tolerated. Treat with leukotriene modifiers; aspirin desensitization can decrease upper respiratory symptoms and allow chronic aspirin/NSAID use when required for another indication, though dupilumab and IL-5-active biologics are increasingly superseding desensitization except when chronic aspirin/NSAID therapy is itself needed.",
     "[H] Allergic bronchopulmonary aspergillosis (ABPA): type 2 inflammatory response to Aspergillus with IgE >1000 IU/mL, eosinophils >500/microL, positive Aspergillus skin test and specific IgE/IgG; intermittent mucus plugging and central bronchiectasis; treated with itraconazole/voriconazole plus oral corticosteroids.",
     "[+] Classic board differential for episodic wheeze/dyspnea also includes cardiac asthma (CHF), pulmonary embolism, anaphylaxis, and cough-variant presentations of GERD/rhinosinusitis — exercise dyspnea from cardiac causes tends to develop faster after onset and resolve faster than asthma-related dyspnea [H]."
   ]},
@@ -23177,7 +23262,7 @@ URGENT CARE: assess PEFR/FEV1
 SEVERE / IMPENDING RESPIRATORY FAILURE (status asthmaticus):
   - Normal/rising PaCO2 in a tachypneic asthmatic = red flag for impending failure (most attacks cause hypocapnia from tachypnea)
   - NIV may be tried to avert intubation; heliox may reduce work of breathing
-  - If intubated: permissive hypercapnia, low respiratory rate/low tidal volume to limit peak airway pressures (high airway resistance makes ventilation difficult)
+  - If intubated: permissive hypercapnia, low respiratory rate/low tidal volume to limit peak airway pressures (high airway resistance makes ventilation difficult); if critical acidosis results, bicarbonate may be given temporarily to raise the pH
   - Deep sedation +/- neuromuscular blockade sometimes needed
   - Bronchoscopy for mucus plug clearance described but risky with difficult ventilation` },
     "[H] Antibiotics are given for asthma exacerbations only if there are signs of infection."
@@ -23220,7 +23305,7 @@ emergency: {
     "PEFR <=60% or fails to respond in 1-2 h: IV corticosteroids (or oral prednisone 40-60 mg) plus supplemental oxygen; consider nebulised anticholinergic, LTRA, magnesium",
     "Persistent severe tachypnoea or failure to reach PEFR above 60% over 4-6 h: admit",
     "Impending respiratory failure: NIV may be tried to avert intubation; heliox may reduce work of breathing",
-    "If intubated: permissive hypercapnia, low respiratory rate and low tidal volume to limit peak airway pressures; deep sedation +/- neuromuscular blockade sometimes needed",
+    "If intubated: permissive hypercapnia, low respiratory rate and low tidal volume to limit peak airway pressures; bicarbonate may be given temporarily to correct critical acidosis if it results; deep sedation +/- neuromuscular blockade sometimes needed",
     "Antibiotics only if there are signs of infection"
   ],
   workup: [
@@ -23683,13 +23768,31 @@ sections: [
   |
   Refractory hypoxemia (FiO2 >0.6 or PaO2/FiO2 <150):
      -> optimize PEEP
-     -> consider neuromuscular blockade if dyssynchronous despite deep sedation
+     -> consider neuromuscular blockade (cisatracurium besylate infusion for 48 h)
+        if dyssynchronous despite deep sedation -- one RCT showed a mortality
+        benefit with early 48-h cisatracurium in severe ARDS without increasing
+        ICU-acquired paresis, but a subsequent trial found no mortality benefit
+        for early routine use in moderate-severe ARDS, so reserve for patients
+        with ventilator dyssynchrony despite adequate sedation rather than
+        routine/blanket use
      -> PRONE POSITIONING for severe ARDS (PaO2/FiO2 <150), shown to cut 28-day
         mortality from 32.8% to 16.0% in a pivotal 2013 trial -- requires an
         experienced proning team (risks: extubation, line dislodgement, injury)
      -> inhaled pulmonary vasodilators (epoprostenol, nitric oxide) can raise
         PaO2/FiO2 by 20-30 mmHg without proven mortality benefit
      -> ECMO as rescue therapy for refractory hypoxemia in select centers` },
+    { sub: "Initial ARDS management goals (stepwise algorithm)" },
+    { ul: [
+      "[H] Ventilation: tidal volume <=6 mL/kg predicted body weight, plateau pressure <=30 cmH2O, respiratory rate <=35/min.",
+      "[H] Oxygenation: FiO2 <=0.6, SpO2 88-95%.",
+      "[H] Minimize acidosis: pH >=7.30 (with RR <=35/min).",
+      "[H] Diuresis: target mean arterial pressure >=65 mmHg while avoiding hypoperfusion of critical organs - diuretics/fluid restriction to reduce left atrial filling pressure are limited by hypotension and organ hypoperfusion (especially the kidneys)."
+    ]},
+    { sub: "Glucocorticoids in ARDS" },
+    { ul: [
+      "[H] Current evidence does NOT support routine glucocorticoid use in ARDS - trials of early and late glucocorticoid therapy have shown little mortality benefit (evidence grade D, not recommended).",
+      "[H] Low-dose hydrocortisone (200 mg over 24 h) is instead supported in two overlapping conditions: septic shock with refractory hypotension (2021 Surviving Sepsis guidelines) and severe community-acquired pneumonia - not as ARDS-specific therapy per se."
+    ]},
     "[H] Recruitment maneuvers (transient high PEEP to re-open atelectatic lung) can transiently raise oxygenation but have NOT shown mortality benefit, and combined with higher baseline PEEP actually increased mortality in one trial. Alternate modes (airway pressure release ventilation, high-frequency oscillatory ventilation) are not proven superior to standard low-Vt ventilation.",
     "[H] Oxygenation targets: a large RCT comparing conservative (PaO2 55-70 mmHg / SpO2 88-92%) vs liberal (PaO2 90-105 mmHg / SpO2 >96%) oxygenation in ARDS found no mortality difference, with MORE adverse events (including mesenteric ischemia) in the lower-target group — individualize targets, avoid sustained hyperoxia (PaO2 >100 mmHg has no proven benefit).",
     "[H] Fluid management: conservative/restrictive fluid strategy (maintaining low left atrial filling pressure) minimizes pulmonary edema and prevents further deterioration in oxygenation and compliance, since increased vascular permeability in ARDS worsens edema at any given left atrial pressure.",
@@ -23751,8 +23854,9 @@ emergency: {
     "Treat the underlying disorder (pneumonia, sepsis, aspiration, trauma) while supporting oxygenation/ventilation",
     "NIV (CPAP/BiPAP) for rapidly reversible causes - COPD exacerbation with pH 7.25-7.35; invasive ventilation if pH below 7.2 or NIV contraindicated (cannot protect airway, vomiting, haemodynamic instability)",
     "Lung-protective ventilation for ARDS: tidal volume 6 mL/kg predicted body weight, plateau pressure <=30 cmH2O, PEEP titrated to avoid atelectrauma vs overdistension",
-    "Severe ARDS (PaO2/FiO2 <150): prone positioning (proven mortality benefit); consider neuromuscular blockade if dyssynchronous despite deep sedation",
+    "Severe ARDS (PaO2/FiO2 <150): prone positioning (proven mortality benefit); consider neuromuscular blockade (cisatracurium besylate infusion for 48 h) if dyssynchronous despite deep sedation rather than as routine/blanket therapy",
     "Refractory hypoxaemia: inhaled pulmonary vasodilators, then ECMO as rescue in select centres",
+    "Do not use glucocorticoids routinely for ARDS (no proven mortality benefit); low-dose hydrocortisone 200 mg/24h is reserved for coexisting septic shock with refractory hypotension or severe community-acquired pneumonia",
     "Conservative/restrictive fluid strategy to minimise pulmonary oedema once haemodynamically stable",
     "Permissive hypercapnia (lower RR 9-12/min, Vt 7-9 mL/kg) in severe obstructive disease/ARDS to avoid barotrauma, with caution in raised ICP"
   ],
@@ -24166,20 +24270,21 @@ refs: [
    1. STABILIZE THE MYOCARDIUM
       - IV calcium gluconate 10% 10 mL (or Ca-chloride 3-4 mL) over 2-3 min
       - Onset 1-3 min, lasts 30-60 min; repeat if no ECG change or recurrence
-      - Extreme caution if on digoxin (hypercalcemia potentiates digoxin toxicity) - dilute and infuse slowly if used
+      - Extreme caution if on digoxin (hypercalcemia potentiates digoxin toxicity) - if judged necessary, dilute the 10 mL of 10% calcium gluconate in 100 mL of 5% dextrose and infuse over 20-30 min to avoid acute hypercalcemia
    |
    2. SHIFT K+ INTO CELLS (rapid, temporary)
       - Insulin 10 U IV regular + 50 mL D50W (25 g dextrose); onset 10-20 min, peak 30-60 min, lasts 4-6 h
       - Follow with 10% dextrose infusion 50-75 mL/h + glucose monitoring (hypoglycemia common)
       - NEVER give D50W bolus without insulin (worsens hyperkalemia via osmotic effect)
-      - Nebulized albuterol 10-20 mg in 4 mL NS over 10 min (additive with insulin; ~20% of ESKD patients resistant - do not use alone)
-      - IV sodium bicarbonate has NO role in ACUTE treatment; may slowly help over several hours if metabolic acidosis present - avoid repeated hypertonic boluses
+      - If glucose is already >=200-250 mg/dL, give insulin WITHOUT glucose, with close glucose monitoring
+      - Nebulized albuterol 10-20 mg in 4 mL NS over 10 min; onset ~30 min, peak ~90 min, lasts 2-6 h (additive with insulin; ~20% of ESKD patients resistant - do not use alone); side effects include hyperglycemia and tachycardia - use cautiously in hyperkalemic patients with known cardiac disease
+      - IV sodium bicarbonate has NO role in ACUTE treatment; may slowly help over several hours if metabolic acidosis present (delayed drop in K+ after 4-6 h of isotonic infusion) - give as an isotonic/hypotonic solution (e.g., 150 mEq sodium bicarbonate in 1 L D5W), never as a repeated hypertonic bolus of undiluted ampules (risk of hypernatremia/hypertonicity)
    |
    3. REMOVE POTASSIUM FROM THE BODY (definitive)
-      - Patiromer or sodium zirconium cyclosilicate (newer potassium binders, preferred over SPS - faster onset, better safety)
-      - Sodium polystyrene sulfonate (SPS) 15-30 g with sorbitol - slow onset (up to 24h); risk of intestinal necrosis, especially with reduced motility/postoperative/opioids - use alternatives first when available
-      - Loop/thiazide diuretics if volume-replete/hypervolemic with adequate renal function
-      - Hemodialysis - most effective/reliable method; required urgently in AKI or refractory severe hyperkalemia` },
+      - Patiromer (nonabsorbed polymer, exchanges K+ for Ca2+; major side effect hypomagnesemia, also decreases urinary Na+ excretion) or sodium zirconium cyclosilicate (exchanges K+/NH4+ for Na+/H+) - newer potassium binders, preferred over SPS given SPS's intestinal toxicity
+      - Sodium polystyrene sulfonate (SPS) 15-30 g, almost always given premixed with 33% sorbitol - slow onset, full effect may take up to 24h and usually needs repeated dosing every 4-6h; risk of (usually fatal) intestinal necrosis (colon or ileum), especially with reduced motility/postoperative/opioid use - use alternatives first when available
+      - Loop/thiazide diuretics if volume-replete/hypervolemic with adequate renal function; may need combining with IV saline or isotonic bicarbonate to achieve/maintain euvolemia
+      - Hemodialysis - most effective/reliable method (peritoneal dialysis considerably less effective); required urgently in AKI or refractory severe hyperkalemia; amount of K+ removed depends on ICF/ECF K+ distribution, dialyzer type/surface area, dialysate/blood flow rates, and dialysis duration` },
       { ul: [
         "[+] Local practice note: confirm local availability of patiromer/sodium zirconium cyclosilicate vs reliance on SPS, and ensure dialysis access planning for refractory cases."
       ]}
@@ -24221,10 +24326,10 @@ refs: [
     ],
     immediate: [
       "Hyperkalemia (K+ >=6.5 mM or ECG change) - admit with continuous cardiac monitoring and follow the three-stage sequence:",
-      "1. Stabilize the myocardium: IV calcium gluconate 10% 10 mL (or Ca-chloride 3-4 mL) over 2-3 min; onset 1-3 min, lasts 30-60 min, repeat if no ECG change or recurrence; infuse slowly/dilute if on digoxin",
-      "2. Shift K+ into cells: insulin 10 U IV regular + 50 mL D50W (25 g dextrose), followed by 10% dextrose infusion 50-75 mL/h with glucose monitoring; NEVER give D50W bolus without insulin; add nebulized albuterol 10-20 mg in 4 mL NS over 10 min (additive, not sole therapy - ~20% of ESKD patients are resistant)",
-      "3. Remove potassium: patiromer or sodium zirconium cyclosilicate (preferred over SPS), or SPS 15-30 g with sorbitol if binders unavailable (slow onset, intestinal necrosis risk); loop/thiazide diuretics if volume-replete; hemodialysis is most effective/reliable and required urgently in AKI or refractory severe hyperkalemia",
-      "IV sodium bicarbonate has NO role in acute hyperkalemia treatment - avoid repeated hypertonic boluses",
+      "1. Stabilize the myocardium: IV calcium gluconate 10% 10 mL (or Ca-chloride 3-4 mL) over 2-3 min; onset 1-3 min, lasts 30-60 min, repeat if no ECG change or recurrence; if on digoxin, dilute the 10 mL 10% calcium gluconate in 100 mL 5% dextrose and infuse over 20-30 min instead of a direct bolus",
+      "2. Shift K+ into cells: insulin 10 U IV regular + 50 mL D50W (25 g dextrose), followed by 10% dextrose infusion 50-75 mL/h with glucose monitoring (give insulin WITHOUT glucose if glucose already >=200-250 mg/dL); NEVER give D50W bolus without insulin; add nebulized albuterol 10-20 mg in 4 mL NS over 10 min (onset ~30 min, lasts 2-6 h; side effects hyperglycaemia/tachycardia; additive, not sole therapy - ~20% of ESKD patients are resistant)",
+      "3. Remove potassium: patiromer (watch for hypomagnesaemia) or sodium zirconium cyclosilicate (preferred over SPS), or SPS 15-30 g premixed with 33% sorbitol if binders unavailable (slow onset up to 24h, repeat q4-6h; rare but usually fatal intestinal necrosis risk); loop/thiazide diuretics +/- IV saline/isotonic bicarbonate if volume-replete; haemodialysis is most effective/reliable (peritoneal dialysis much less so) and required urgently in AKI or refractory severe hyperkalaemia",
+      "IV sodium bicarbonate has NO role in acute hyperkalaemia treatment - if used for coexisting acidosis, give as an isotonic/hypotonic solution (e.g. 150 mEq in 1 L D5W) over several hours, never as a repeated hypertonic bolus of undiluted ampules",
       "Hypokalemia <2.5 mM or symptomatic (paralysis, arrhythmia): IV KCl in saline (not dextrose) via central line with cardiac monitoring, 10-20 mmol/h; correct Mg2+ concurrently - hypomagnesemic patients are refractory to K+ repletion alone",
       "Thyrotoxic periodic paralysis/theophylline overdose/acute head injury causing hypokalemia: high-dose propranolol 3 mg/kg corrects hypokalemia WITHOUT rebound hyperkalemia risk"
     ],
@@ -24351,9 +24456,13 @@ refs: [
       ]}},
       { sub: "Hypocalcemia [H]" },
       { ul: [
-        "[H] Correct underlying magnesium deficiency first/concurrently - PTH secretion and action are impaired by hypomagnesemia, making hypocalcemia refractory to calcium repletion alone.",
-        "[+] Acute symptomatic hypocalcemia (tetany, seizures, laryngospasm, prolonged QTc): IV calcium gluconate, with cardiac monitoring, followed by oral calcium and active vitamin D (calcitriol) as indicated by the underlying cause - confirm exact dosing against current endocrine references/guidelines (Harrison's Chap. 57 defers full hypocalcemia treatment detail to Chap. 422).",
-        "[H] Chronic hypoparathyroidism: oral calcium + active vitamin D (calcitriol) are mainstays; recombinant PTH therapy is an option in refractory cases discussed in the dedicated endocrine chapter."
+        "[H] Acute symptomatic hypocalcemia (tetany, seizures, QTc prolongation): IV calcium gluconate - one 10-mL ampule of 10% wt/vol (90 mg or 2.2 mmol elemental calcium) diluted in 50 mL of 5% dextrose or 0.9% saline, given IV over 5-10 min with telemetry; one or two additional ampules at 10-60 min intervals as needed to resolve symptoms.",
+        "[H] While transitioning to oral medication, symptomatic hypocalcemia often requires a period of continuous IV calcium infusion, often starting at 1 mg/min elemental calcium for adults, titrated to symptoms, ECG, and blood calcium (targeting the lower limit of normal); telemetry with serial exams and blood calcium every 4-6 h until tetany resolves, the patient is stable/able to take oral medication, and the QTc has normalized.",
+        "[H] Correct underlying magnesium deficiency first/concurrently - PTH secretion and action are impaired by hypomagnesemia, making hypocalcemia refractory to calcium repletion alone; treat accompanying hypomagnesemia with appropriate magnesium supplementation, with chronic-phase treatment started once tetany has resolved.",
+        "[H] Chronic hypoparathyroidism: oral calcium supplements 1000-3000 mg/d elemental calcium in divided doses, with careful titration of oral calcitriol [1,25(OH)2D] 0.25-1 microg/d to achieve albumin-corrected low-normal serum calcium; keep 24-h urine calcium under 250 mg (women) or 300 mg (men) to limit nephrolithiasis/nephrocalcinosis risk from PTH-independent distal tubular calcium handling; maintain adequate vitamin D3 nutrition (1000-2000 IU/d), checking 25(OH)D every 6-12 months.",
+        "[H] PTH replacement: PTH(1-84) (Natpara) has been discontinued by the manufacturer; teriparatide (PTH 1-34), FDA-approved for osteoporosis, is used off-label for refractory hypoparathyroidism at 20 microg SC twice daily (dose reduced in chronic renal insufficiency to avoid hypercalcemia); palopegteriparatide (a pegylated once-daily teriparatide prodrug) is under regulatory consideration.",
+        "[H] Vitamin D deficiency-related hypocalcemia: nutritional deficiency generally responds to moderate oral vitamin D doses (e.g., ergocalciferol 50,000 IU 2-3 times weekly for several months); severe enteric malabsorption (e.g., after Roux-en-Y bariatric surgery) may require much higher doses (e.g., ergocalciferol titrated up to 100,000 IU/d).",
+        "[H] In intestinal disease, calcium supplementation as calcium citrate is preferred over other calcium salts because it is better absorbed and increases urinary citrate, mitigating nephrolithiasis risk from increased dietary oxalate absorption."
       ]}
     ]},
     { h: "6. Complications and follow-up", body: [
@@ -24409,8 +24518,9 @@ refs: [
       "Rapid transient reduction (first 48 h, adjunct): calcitonin 4-8 IU/kg IM or SC every 6 h alongside hydration and bisphosphonate",
       "Vitamin D/1,25(OH)2D-mediated hypercalcemia (granulomatous disease, lymphoma): glucocorticoids are foundational, not bisphosphonates alone - IV hydrocortisone 200-400 mg/d x3-5 days or oral prednisone 40-60 mg/d x7-10 days with taper",
       "Severe hypercalcemia with anuric AKI or CHF: dialysis to control calcium",
-      "Acute symptomatic hypocalcemia (tetany, seizures, laryngospasm, prolonged QTc): IV calcium gluconate with cardiac monitoring, followed by oral calcium and active vitamin D (calcitriol) as indicated by the cause",
-      "Correct underlying magnesium deficiency first/concurrently in hypocalcemia - PTH secretion and action are impaired by hypomagnesemia, making calcium repletion alone ineffective"
+      "Acute symptomatic hypocalcemia (tetany, seizures, laryngospasm, prolonged QTc): IV calcium gluconate - one 10-mL ampule 10% (90 mg/2.2 mmol elemental calcium) diluted in 50 mL D5W or 0.9% saline over 5-10 min with telemetry, repeating at 10-60 min intervals as needed, then a continuous IV calcium infusion (starting ~1 mg/min elemental calcium in adults) titrated to symptoms/ECG/calcium level until stable and QTc normalizes",
+      "Correct underlying magnesium deficiency first/concurrently in hypocalcemia - PTH secretion and action are impaired by hypomagnesemia, making calcium repletion alone ineffective",
+      "Transition to oral calcium (1000-3000 mg/d elemental) plus titrated oral calcitriol (0.25-1 microg/d) for chronic hypoparathyroidism once acute symptoms resolve"
     ],
     workup: [
       "Confirm true calcium abnormality: albumin-corrected calcium (add/subtract 0.8 mg/dL per 1.0 g/dL albumin deviation from 4.0 g/dL) before acting",
@@ -26224,9 +26334,10 @@ refs: [
       { sub: "Acute treatment [H]" },
       { ul: [
         "[H] Epinephrine is the treatment of first choice and should be given immediately without delay: intramuscular injection of 0.3-0.5 mL of 1:1000 (1 mg/mL) epinephrine into the anterolateral thigh, repeated at 5- to 20-minute intervals as needed for persistent/severe reaction.",
-        "[H] Failure to use epinephrine promptly (within the first several minutes) is associated with worse outcomes and is a major preventable factor in fatal anaphylaxis - do not substitute antihistamines or glucocorticoids for epinephrine as initial therapy.",
+        "[H] Failure to use epinephrine within the first 20 minutes of symptom onset is a specific, identified risk factor for poor clinical outcomes across multiple studies of anaphylaxis - do not substitute antihistamines or glucocorticoids for epinephrine as initial therapy.",
         "[H] Position patient supine (or semi-recumbent if respiratory distress predominates) with legs elevated if hypotensive, to maximize venous return - avoid sudden standing which can precipitate cardiovascular collapse ('empty ventricle syndrome').",
-        "[H] Supplemental oxygen, IV fluid resuscitation (crystalloid) for hypotension, and continuous monitoring of airway, breathing, circulation.",
+        "[H] Supplemental oxygen via nasal cannula or nebulized albuterol may help; however, either endotracheal intubation or tracheostomy is MANDATORY for oxygen delivery if progressive hypoxia develops despite these measures.",
+        "[H] IV fluid resuscitation (crystalloid) for hypotension, and continuous monitoring of airway, breathing, circulation.",
         "[H] Adjunctive therapies (do NOT replace epinephrine): H1-antihistamines for cutaneous symptoms, H2-antihistamines as adjunct, bronchodilators (inhaled beta-agonist) for bronchospasm, glucocorticoids (may help prevent/attenuate biphasic reactions, though evidence is not definitive).",
         "[H] Refractory hypotension despite IM epinephrine may require IV epinephrine infusion (with cardiac monitoring given arrhythmia risk) and additional vasopressors in an ICU setting.",
         "[H] Patients on beta-blockers with refractory hypotension/bronchospasm unresponsive to epinephrine may benefit from glucagon (bypasses beta-receptor blockade to increase cAMP)."
@@ -26381,21 +26492,25 @@ refs: [
       { sub: "DIHS/DRESS treatment [H]" },
       { ul: [
         "[H] Discontinue culprit drug immediately.",
-        "[H] Systemic glucocorticoids are the mainstay of treatment for significant organ involvement: prednisone typically started at 1-1.5 mg/kg/day, with a prolonged taper over 8-12 weeks (rapid tapering risks disease flare/relapse, which is characteristic of DRESS).",
-        "[H] IVIG or cyclosporine may be considered for refractory or glucocorticoid-contraindicated cases.",
+        "[H] Systemic glucocorticoids (1.5-2 mg/kg/day prednisone equivalent) should be started promptly for significant organ involvement and tapered SLOWLY over 8-12 weeks, with clinical symptoms and labs (CBC with differential, basic metabolic panel, LFTs) followed carefully throughout the taper (rapid tapering risks disease flare/relapse, which is characteristic of DRESS).",
+        "[H] A steroid-sparing agent - mycophenolate mofetil, IV immunoglobulin, or cyclosporine - may be indicated for cases of rapid recurrence upon steroid taper.",
+        "[H] Mortality has been reported as high as 10% (mostly from liver failure), though more recent large cohort data suggest true mortality is closer to 2%.",
+        "[H] Given the risk of delayed myocarditis, obtain cardiac evaluation in severe DRESS or when heart involvement is suspected (e.g., hypotension or arrhythmia).",
         "[H] Long-term follow-up needed given risk of delayed autoimmune sequelae (e.g., autoimmune thyroiditis, type 1 diabetes) that can emerge months after the acute episode, thought related to HHV-6 reactivation and immune dysregulation."
       ]},
       { sub: "SJS/TEN treatment [H]" },
       { ul: [
         "[H] Immediate drug withdrawal and transfer to a burn unit or ICU for cases with significant BSA involvement - supportive care is the cornerstone, analogous to burn management (fluid/electrolyte management, nutrition, temperature regulation, infection prevention/wound care, pain control).",
         "[H] Ophthalmology consultation is essential given risk of severe ocular complications (symblepharon, corneal scarring, blindness) - early intervention can reduce long-term ocular morbidity.",
-        "[H] Systemic glucocorticoids (e.g., 1.5-2 mg/kg/day prednisone equivalent) may be used, particularly if started early in the disease course, though evidence and practice patterns vary; IVIG and cyclosporine are also used in some centers, though definitive evidence of mortality benefit for any single immunomodulatory therapy is limited.",
+        "[H] Early administration of systemic glucocorticoids (e.g., 1.5-2 mg/kg/day prednisone equivalent), IV immunoglobulin, cyclosporine, or etanercept may improve disease outcomes, particularly if started early in the disease course, though randomized evidence for any single immunomodulatory therapy is lacking and difficult to perform.",
+        "[H] At least 10% of patients with SJS and 30% of patients with TEN die from the disease; older age, greater extent of epidermal detachment, cancer, and renal insufficiency are associated with worse prognosis.",
         "[H] Avoid prophylactic antibiotics (reserve for documented infection) and minimize unnecessary adhesive dressings/interventions that can worsen skin detachment.",
         "[H] Future avoidance counseling: provide a written list of the culprit drug and structurally related/cross-reactive drugs to avoid; consider pharmacogenomic HLA testing of relatives in populations/drugs with strong HLA associations (e.g., family members before carbamazepine if index case HLA-B*15:02-SJS/TEN positive)."
       ]},
       { sub: "AGEP treatment [H]" },
       { ul: [
-        "[H] Discontinue culprit drug; supportive care with topical glucocorticoids; condition typically resolves rapidly (days) with desquamation following pustule resolution; systemic glucocorticoids generally not required given self-limited course."
+        "[H] Discontinue culprit drug; supportive care with topical glucocorticoids; condition typically resolves rapidly (days) with desquamation following pustule resolution; systemic glucocorticoids generally not required given self-limited course.",
+        "[H] AGEP classically begins within 24-48 hours of drug exposure, though onset may be delayed 1-3 weeks with certain drugs (e.g., hydroxychloroquine, terbinafine)."
       ]},
       { sub: "Prevention: HLA screening [H]" },
       { ul: [
@@ -26451,10 +26566,10 @@ refs: [
       "Immediate discontinuation of the suspected causative drug - the single most important intervention, particularly for SJS/TEN and DRESS, with earlier withdrawal associated with better outcomes",
       "SJS/TEN: transfer to a burn unit or ICU for significant BSA involvement; burn-like supportive care (fluid/electrolyte management, nutrition, temperature regulation, infection prevention/wound care, pain control)",
       "SJS/TEN: urgent ophthalmology consultation given risk of severe ocular complications (symblepharon, corneal scarring, blindness)",
-      "SJS/TEN: consider systemic glucocorticoids (e.g., 1.5-2 mg/kg/day prednisone equivalent), particularly if started early; IVIG or cyclosporine used in some centers, though mortality benefit evidence is limited",
+      "SJS/TEN: consider early systemic glucocorticoids (e.g., 1.5-2 mg/kg/day prednisone equivalent), IVIG, cyclosporine, or etanercept, particularly if started early; randomized evidence of mortality benefit for any one agent is lacking (at least 10% of SJS and 30% of TEN die from the disease)",
       "SJS/TEN: avoid prophylactic antibiotics (reserve for documented infection) and minimize unnecessary adhesive dressings/interventions that worsen skin detachment",
-      "DRESS with significant organ involvement: systemic glucocorticoids, prednisone 1-1.5 mg/kg/day, with a prolonged taper over 8-12 weeks (rapid tapering risks flare)",
-      "DRESS refractory to or with contraindication to steroids: IVIG or cyclosporine may be considered",
+      "DRESS with significant organ involvement: systemic glucocorticoids 1.5-2 mg/kg/day prednisone equivalent, tapered SLOWLY over 8-12 weeks (rapid tapering risks flare), with CBC/diff, metabolic panel, and LFTs followed throughout; obtain cardiac evaluation if severe or heart involvement suspected",
+      "DRESS refractory to or with contraindication to steroids, or recurring on taper: mycophenolate mofetil, IVIG, or cyclosporine may be considered",
       "Clear documentation of the reaction (drug name, reaction type, severity) in the medical record/allergy list to prevent re-exposure; avoid structurally related/cross-reactive drugs",
       "Never use drug desensitization for SCAR (SJS/TEN, DRESS) - only appropriate for IgE-mediated (Type I) reactions"
     ],
@@ -30315,7 +30430,52 @@ function blockHTML(x,nid,si,bi,edit){
 }
 function body(b,si,nid,edit){return b.map(function(x,bi){return blockHTML(x,nid,si,bi,edit)}).join('')}
 function showNote(n){
-  cur=n;mode='note';exLoad(n.id).then(function(){if(cur===n&&mode==='note')buildNote(n)});
+  cur=n;mode='note';noteTab='management';exLoad(n.id).then(function(){if(cur===n&&mode==='note')buildNote(n)});
+}
+/* disease tab/menu grouping: Introduction, Diagnosis, Classification/Severity, Management, DDx.
+   Purely a display regrouping of the same section data - si/bi (used by the edit-overlay system)
+   always refer to the ORIGINAL n.sections[si].body[bi], never to position within a tab. */
+var noteTab='management';
+var TABDEFS=[
+  {key:'intro',label:'Introduction'},
+  {key:'diagnosis',label:'Diagnosis'},
+  {key:'severity',label:'Classification / Severity'},
+  {key:'management',label:'Management',emph:true},
+  {key:'ddx',label:'Differential diagnosis'}
+];
+function sectionCategory(h){
+  h=(h||'').toLowerCase();
+  if(/introduction|epidemiolog/.test(h))return 'intro';
+  if(/differential/.test(h))return 'ddx';
+  if(/investigat/.test(h))return 'diagnosis';
+  if(/diagnostic criteria/.test(h))return 'diagnosis';
+  if(/management/.test(h))return 'management';
+  if(/complication|follow-up|follow up/.test(h))return 'management';
+  return 'diagnosis';
+}
+function bodySlice(b,si,nid,edit,off){return b.map(function(x,bi){return blockHTML(x,nid,si,bi+off,edit)}).join('')}
+function splitTabs(n){
+  var buckets={intro:[],ddx:[],diagnosis:[],management:[],severity:[]};
+  n.sections.forEach(function(sec,si){
+    var cat=sectionCategory(sec.h),body=sec.body,curCat=cat,start=0,chunks=[];
+    for(var bi=0;bi<body.length;bi++){
+      var b=body[bi];
+      if(b&&b.sub&&/sever|classif|grad|stag/i.test(b.sub)&&(cat==='diagnosis'||cat==='management')){
+        if(bi>start)chunks.push({cat:curCat,start:start,end:bi});
+        curCat='severity';start=bi;
+      }else if(b&&b.sub&&curCat==='severity'){
+        chunks.push({cat:'severity',start:start,end:bi});
+        curCat=cat;start=bi;
+      }
+    }
+    chunks.push({cat:curCat,start:start,end:body.length});
+    chunks.forEach(function(ch){if(ch.end>ch.start)buckets[ch.cat].push({h:sec.h,si:si,body:body.slice(ch.start,ch.end),off:ch.start})});
+  });
+  return buckets;
+}
+function renderTabPanel(chunks,nid){
+  if(!chunks.length)return '<p class="empty">Nothing recorded for this section in this note.</p>';
+  return chunks.map(function(c){return '<section class="sec"><h3>'+esc(c.h)+'</h3>'+bodySlice(c.body,c.si,nid,true,c.off)+'</section>'}).join('');
 }
 function buildNote(n){
   cur=n;mode='note';document.body.dataset.view='note';
@@ -30326,11 +30486,21 @@ function buildNote(n){
    '<div class="btnrow" style="margin-top:10px"><button class="btn sm" id="expone">Export note (HTML)</button><button class="btn sm" id="expmd">Export note (Markdown)</button></div>'+
    '<div class="stamp">'+rich(n.stamp||'')+'</div></div>';
   h+='<div class="recall"><h3>One-page recall</h3><div class="rg">'+rg('Criteria',r.criteria)+rg('First line',r.firstline)+rg('Red flags',r.redflags)+(r.mnemonic?'<div><h4>Mnemonic</h4><div style="font-size:14px">'+esc(r.mnemonic)+'</div></div>':'')+'</div></div>';
-  n.sections.forEach(function(sec,si){h+='<section class="sec"><h3>'+esc(sec.h)+'</h3>'+body(sec.body,si,n.id,true)+'</section>'});
+  var buckets=splitTabs(n);
+  if(!buckets[noteTab]||!buckets[noteTab].length)noteTab='management';
+  h+='<div class="dxtabs" role="tablist" aria-label="Disease sections">'+TABDEFS.map(function(t){
+    if(t.key!=='management'&&(!buckets[t.key]||!buckets[t.key].length))return '';
+    return '<button class="dxtab'+(t.emph?' mgmt':'')+'" data-tab="'+t.key+'" aria-pressed="'+(t.key===noteTab)+'">'+esc(t.label)+'</button>';
+  }).join('')+'</div>';
+  h+='<div class="dxpanels">'+TABDEFS.map(function(t){
+    if(t.key!=='management'&&(!buckets[t.key]||!buckets[t.key].length))return '';
+    return '<div class="dxpanel"'+(t.key===noteTab?'':' hidden')+'>'+renderTabPanel(buckets[t.key],n.id)+'</div>';
+  }).join('')+'</div>';
   if(n.oral)h+='<div class="qbox"><h3>Oral exam prompt</h3><div>'+esc(n.oral)+'</div></div>';
   h+='<section class="sec refs"><h3>References</h3><ol>'+(n.refs||[]).map(function(x){return '<li>'+esc(x)+'</li>'}).join('')+'</ol></section>';
   h+='<section class="sec" id="xsec"></section>';
   var m=$('#main');m.innerHTML=h;m.scrollTop=0;mountExtra(n);bindEdit(n);
+  m.querySelectorAll('.dxtab').forEach(function(b){b.onclick=function(){noteTab=b.dataset.tab;buildNote(n)}});
   $('#back').onclick=function(){document.body.dataset.view='list'};
   $('#expone').onclick=function(){exportFile(n.id+'.html',pageHTML([n]))};
   $('#expmd').onclick=function(){exportFile(n.id+'.md',md(n))};
