@@ -2,6 +2,7 @@ services:
   - type: web
     name: pages-converter
     runtime: docker
+    plan: free
     rootDir: pages-converter
     dockerfilePath: ./Dockerfile
     healthCheckPath: /healthz
