@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: pages-converter
+    runtime: docker
+    plan: free
+    rootDir: pages-converter
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    envVars:
+      - key: LINE_CHANNEL_SECRET
+        sync: false
+      - key: LINE_CHANNEL_ACCESS_TOKEN
+        sync: false
+      - key: PUBLIC_BASE_URL
+        sync: false
+      - key: API_KEY
+        sync: false

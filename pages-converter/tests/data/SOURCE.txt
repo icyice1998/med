@@ -1,0 +1,1 @@
+Pages_4.pages and Pages_5.pages are from LibreOffice core (writerperfect/qa/unit/data/writer/libetonyek/pass), MPL-2.0.

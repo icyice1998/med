@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pages Converter</title>
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --fg:#1d2330; --muted:#667085; --line:#d0d5dd; --accent:#06c755; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f1217; --card:#171b22; --fg:#e6e8ec; --muted:#98a2b3; --line:#2c333d; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; background:var(--bg); color:var(--fg); }
+  main { max-width:520px; margin:48px auto; padding:0 16px; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:24px; }
+  h1 { font-size:22px; margin:0 0 4px; }
+  p.sub { margin:0 0 20px; color:var(--muted); font-size:14px; }
+  #drop { border:2px dashed var(--line); border-radius:10px; padding:32px 16px; text-align:center; cursor:pointer; color:var(--muted); }
+  #drop.over { border-color:var(--accent); color:var(--fg); }
+  #fname { margin-top:8px; font-weight:600; color:var(--fg); word-break:break-all; }
+  .row { display:flex; gap:16px; margin:20px 0; }
+  label.opt { display:flex; gap:6px; align-items:center; cursor:pointer; }
+  button { width:100%; padding:12px; border:0; border-radius:8px; background:var(--accent); color:#fff; font-size:16px; font-weight:600; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:default; }
+  #status { margin-top:14px; font-size:14px; min-height:1.5em; }
+  .err { color:#d92d20; }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>Pages Converter</h1>
+    <p class="sub">Convert Apple Pages (.pages) files to PDF or Word (.docx).</p>
+
+    <div id="drop">Drop a .pages file here or click to choose
+      <div id="fname"></div>
+    </div>
+    <input id="file" type="file" accept=".pages,.zip" hidden>
+
+    <div class="row">
+      <label class="opt"><input type="radio" name="fmt" value="pdf" checked> PDF</label>
+      <label class="opt"><input type="radio" name="fmt" value="docx"> Word (.docx)</label>
+    </div>
+
+    <button id="go" disabled>Convert</button>
+    <div id="status"></div>
+  </div>
+</main>
+<script>
+const drop = document.getElementById('drop'), input = document.getElementById('file');
+const go = document.getElementById('go'), status = document.getElementById('status');
+let file = null;
+
+function pick(f) {
+  file = f; document.getElementById('fname').textContent = f ? f.name : '';
+  go.disabled = !f; status.textContent = '';
+}
+drop.onclick = () => input.click();
+input.onchange = () => pick(input.files[0]);
+['dragover','dragenter'].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.add('over'); }));
+['dragleave','drop'].forEach(e => drop.addEventListener(e, ev => { ev.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', ev => pick(ev.dataTransfer.files[0]));
+
+go.onclick = async () => {
+  const fmt = document.querySelector('input[name=fmt]:checked').value;
+  const fd = new FormData(); fd.append('file', file); fd.append('format', fmt);
+  go.disabled = true; status.className = ''; status.textContent = 'Converting...';
+  try {
+    const r = await fetch('api/convert', { method: 'POST', body: fd });
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+    const blob = await r.blob();
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = file.name.replace(/\.(pages|zip)$/i, '') + (fmt === 'pdf' ? '.pdf' : '.docx');
+    a.click(); URL.revokeObjectURL(a.href);
+    status.textContent = 'Done. Download started.';
+  } catch (e) {
+    status.className = 'err'; status.textContent = 'Failed: ' + e.message;
+  } finally { go.disabled = false; }
+};
+</script>
+</body>
+</html>
